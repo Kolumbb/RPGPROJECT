@@ -1,4 +1,4 @@
-# Install script for directory: /Users/kolumb/dev/Projects/github/RPGPROJECT/cmake-build-debug/_deps/sfml-src/src/SFML/Network
+# Install script for directory: /Users/kolumb/dev/Projects/RPGPROJECT/cmake-build-debug/_deps/sfml-src/src/SFML/Network
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -39,8 +39,8 @@ endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "bin" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE SHARED_LIBRARY FILES
-    "/Users/kolumb/dev/Projects/github/RPGPROJECT/cmake-build-debug/_deps/sfml-build/lib/libsfml-network-d.2.6.1.dylib"
-    "/Users/kolumb/dev/Projects/github/RPGPROJECT/cmake-build-debug/_deps/sfml-build/lib/libsfml-network-d.2.6.dylib"
+    "/Users/kolumb/dev/Projects/RPGPROJECT/cmake-build-debug/_deps/sfml-build/lib/libsfml-network-d.2.6.1.dylib"
+    "/Users/kolumb/dev/Projects/RPGPROJECT/cmake-build-debug/_deps/sfml-build/lib/libsfml-network-d.2.6.dylib"
     )
   foreach(file
       "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libsfml-network-d.2.6.1.dylib"
@@ -49,7 +49,7 @@ if(CMAKE_INSTALL_COMPONENT STREQUAL "bin" OR NOT CMAKE_INSTALL_COMPONENT)
     if(EXISTS "${file}" AND
        NOT IS_SYMLINK "${file}")
       execute_process(COMMAND /usr/bin/install_name_tool
-        -delete_rpath "/Users/kolumb/dev/Projects/github/RPGPROJECT/cmake-build-debug/_deps/sfml-build/lib"
+        -delete_rpath "/Users/kolumb/dev/Projects/RPGPROJECT/cmake-build-debug/_deps/sfml-build/lib"
         "${file}")
       if(CMAKE_INSTALL_DO_STRIP)
         execute_process(COMMAND "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/strip" -x "${file}")
@@ -59,6 +59,6 @@ if(CMAKE_INSTALL_COMPONENT STREQUAL "bin" OR NOT CMAKE_INSTALL_COMPONENT)
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "bin" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE SHARED_LIBRARY FILES "/Users/kolumb/dev/Projects/github/RPGPROJECT/cmake-build-debug/_deps/sfml-build/lib/libsfml-network-d.dylib")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE SHARED_LIBRARY FILES "/Users/kolumb/dev/Projects/RPGPROJECT/cmake-build-debug/_deps/sfml-build/lib/libsfml-network-d.dylib")
 endif()
 

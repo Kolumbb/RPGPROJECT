@@ -1,4 +1,4 @@
-# Install script for directory: /Users/kolumb/dev/Projects/github/RPGPROJECT
+# Install script for directory: /Users/kolumb/dev/Projects/RPGPROJECT
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -39,18 +39,18 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/Users/kolumb/dev/Projects/github/RPGPROJECT/cmake-build-debug/_deps/sfml-build/cmake_install.cmake")
+  include("/Users/kolumb/dev/Projects/RPGPROJECT/cmake-build-debug/_deps/sfml-build/cmake_install.cmake")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/bin" TYPE EXECUTABLE FILES "/Users/kolumb/dev/Projects/github/RPGPROJECT/cmake-build-debug/Platformer")
-  if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/Platformer" AND
-     NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/Platformer")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/bin" TYPE EXECUTABLE FILES "/Users/kolumb/dev/Projects/RPGPROJECT/cmake-build-debug/RPGPROJECT")
+  if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/RPGPROJECT" AND
+     NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/RPGPROJECT")
     execute_process(COMMAND /usr/bin/install_name_tool
-      -delete_rpath "/Users/kolumb/dev/Projects/github/RPGPROJECT/cmake-build-debug/_deps/sfml-build/lib"
-      "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/Platformer")
+      -delete_rpath "/Users/kolumb/dev/Projects/RPGPROJECT/cmake-build-debug/_deps/sfml-build/lib"
+      "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/RPGPROJECT")
     if(CMAKE_INSTALL_DO_STRIP)
-      execute_process(COMMAND "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/strip" -u -r "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/Platformer")
+      execute_process(COMMAND "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/strip" -u -r "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/RPGPROJECT")
     endif()
   endif()
 endif()
@@ -63,5 +63,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/Users/kolumb/dev/Projects/github/RPGPROJECT/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/Users/kolumb/dev/Projects/RPGPROJECT/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

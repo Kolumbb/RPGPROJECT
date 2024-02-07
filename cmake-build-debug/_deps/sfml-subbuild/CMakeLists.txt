@@ -28,8 +28,8 @@ set_property(GLOBAL PROPERTY _CMAKE_FindGit_GIT_EXECUTABLE_VERSION
 include(ExternalProject)
 ExternalProject_Add(sfml-populate
                      "UPDATE_DISCONNECTED" "False" "GIT_REPOSITORY" "https://github.com/SFML/SFML.git" "EXTERNALPROJECT_INTERNAL_ARGUMENT_SEPARATOR" "GIT_TAG" "2.6.1"
-                    SOURCE_DIR          "/Users/kolumb/dev/Projects/github/RPGPROJECT/cmake-build-debug/_deps/sfml-src"
-                    BINARY_DIR          "/Users/kolumb/dev/Projects/github/RPGPROJECT/cmake-build-debug/_deps/sfml-build"
+                    SOURCE_DIR          "/Users/kolumb/dev/Projects/RPGPROJECT/cmake-build-debug/_deps/sfml-src"
+                    BINARY_DIR          "/Users/kolumb/dev/Projects/RPGPROJECT/cmake-build-debug/_deps/sfml-build"
                     CONFIGURE_COMMAND   ""
                     BUILD_COMMAND       ""
                     INSTALL_COMMAND     ""
