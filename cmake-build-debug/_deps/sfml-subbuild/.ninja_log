@@ -1,0 +1,21 @@
+# ninja log v5
+0	9	1707340516618686543	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-mkdir	1b31711a419c715d
+0	9	1707340516618686543	/Users/kolumb/dev/Projects/RPGPROJECT/cmake-build-debug/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-mkdir	1b31711a419c715d
+10	6058	1707340522667124601	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-download	ab927d26b86b61cf
+10	6058	1707340522667124601	/Users/kolumb/dev/Projects/RPGPROJECT/cmake-build-debug/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-download	ab927d26b86b61cf
+6058	6083	0	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-update	1a79a6a3569952e2
+6058	6083	0	/Users/kolumb/dev/Projects/RPGPROJECT/cmake-build-debug/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-update	1a79a6a3569952e2
+6083	6091	1707340522700504180	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-patch	b80db1b021d94b7e
+6083	6091	1707340522700504180	/Users/kolumb/dev/Projects/RPGPROJECT/cmake-build-debug/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-patch	b80db1b021d94b7e
+6091	6100	1707340522708965064	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-configure	89d645a0263eab8f
+6091	6100	1707340522708965064	/Users/kolumb/dev/Projects/RPGPROJECT/cmake-build-debug/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-configure	89d645a0263eab8f
+6100	6108	1707340522717483948	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-build	af0a31d565535e51
+6100	6108	1707340522717483948	/Users/kolumb/dev/Projects/RPGPROJECT/cmake-build-debug/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-build	af0a31d565535e51
+6108	6117	1707340522726020207	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-install	81c05c43f52e4d62
+6108	6117	1707340522726020207	/Users/kolumb/dev/Projects/RPGPROJECT/cmake-build-debug/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-install	81c05c43f52e4d62
+6117	6125	1707340522734488092	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-test	ffdd65ad45398eac
+6117	6125	1707340522734488092	/Users/kolumb/dev/Projects/RPGPROJECT/cmake-build-debug/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-test	ffdd65ad45398eac
+6125	6137	1707340522746294730	CMakeFiles/sfml-populate-complete	c981fdbd0101763d
+6125	6137	1707340522746294730	sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-done	c981fdbd0101763d
+6125	6137	1707340522746294730	/Users/kolumb/dev/Projects/RPGPROJECT/cmake-build-debug/_deps/sfml-subbuild/CMakeFiles/sfml-populate-complete	c981fdbd0101763d
+6125	6137	1707340522746294730	/Users/kolumb/dev/Projects/RPGPROJECT/cmake-build-debug/_deps/sfml-subbuild/sfml-populate-prefix/src/sfml-populate-stamp/sfml-populate-done	c981fdbd0101763d
