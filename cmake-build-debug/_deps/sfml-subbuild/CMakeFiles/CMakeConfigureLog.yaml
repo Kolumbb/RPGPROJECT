@@ -7,5 +7,5 @@ events:
       - "/Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.27/Modules/CMakeDetermineSystem.cmake:211 (message)"
       - "CMakeLists.txt:16 (project)"
     message: |
-      The system is: Darwin - 23.2.0 - arm64
+      The system is: Darwin - 23.4.0 - arm64
 ...

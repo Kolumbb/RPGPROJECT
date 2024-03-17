@@ -35,7 +35,7 @@ public:
 
     //Constructors & Destructors
 	Menu(StateData& state_data, u_short buttonsWidth, u_short characterSize);
-	virtual ~Menu() = default;
+	virtual ~Menu();
 
     //Other methods
     auto isButtonPressed(const std::string& name) -> bool;

@@ -5,8 +5,13 @@
 
 class Tile {
 private:
+    //Initializers
+    auto initCollisionBox() -> void;
+
+
     //Variables & Resources
     sf::RectangleShape shape;
+    sf::RectangleShape collisionBox;
     bool collision;
     u_short type;
 protected:
@@ -22,7 +27,7 @@ public:
 
     //Render methods
     auto render(sf::RenderTarget* target) -> void;
-
+    auto renderCollisionBox(sf::RenderTarget* target) -> void;
     //Other public methods
     auto intersects(const sf::FloatRect& floatRect) const -> const bool&;
     //Accessors & Modifiers

@@ -16,8 +16,7 @@ private:
     sf::Vector2u gameSizeInPixels;
     std::vector<std::vector<std::vector<std::shared_ptr<Tile>>>> tileMap;
     std::shared_ptr<sf::Texture> tileSheet;
-    my::Culling playerCulling;
-    my::Culling slimeCulling;
+
 
     //Methods
 
@@ -31,13 +30,15 @@ public:
     ~TileMap() = default;
 
     //Update methods
-    auto update(const float& dt, std::shared_ptr<Player> hero = nullptr, std::shared_ptr<Slime> slime = nullptr) -> void;
-    auto updateWorldBoundsCollisions(std::shared_ptr<Entity> entity = nullptr) -> void;
-    auto updateCulling(std::shared_ptr<Entity> entity1 = nullptr, std::shared_ptr<Entity> entity2 = nullptr) -> void;
-    auto updateTileCollisions(const float& dt, std::shared_ptr<Entity> entity = nullptr) -> void;
+    auto update(const float& dt, std::map<std::string, std::shared_ptr<Entity>>& mapOfEntities) -> void;
+    auto updateWorldBoundsCollisions(std::shared_ptr<Entity>& entity) -> void;
+    auto updateCulling(std::shared_ptr<Entity>& entity) -> void;
+    auto updateTileCollisions(const float& dt, std::shared_ptr<Entity>& entity) -> void;
+    auto updateEntitiesCollisions(std::map<std::string, std::shared_ptr<Entity>>& mapOfEntities);
 
     //Render methods
-    auto render(sf::RenderTarget* target, std::shared_ptr<Entity> entity = nullptr) -> void;
+    auto render(sf::RenderTarget* target) -> void;
+    auto renderCollisionBox(sf::RenderTarget* target) const -> void;
 
     //Other public methods
     auto addTile(

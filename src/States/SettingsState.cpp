@@ -65,6 +65,17 @@ auto SettingsState::initButtonNames() -> void{
     this->buttonNames = std::vector<std::string>{"Display Settings","Controls", "Help", "Exit to Main Menu"};
 }
 
+//Constructors & Destructors
+SettingsState::SettingsState(StateData& stateData) :
+        State(stateData), paused(false) {
+    this->initDisplaySettingsMenu();
+    this->initKeyBinds();
+    this->initBackground();
+    this->initButtonNames();
+    this->initButtons();
+
+}
+
 //Update Methods
 auto SettingsState::update(const float& dt) -> void {
 	this->timer.updateKeyTime(dt);
@@ -140,15 +151,6 @@ auto SettingsState::renderButtons(sf::RenderTarget* target) -> void {
     for (auto& it : this->buttons) it.second->render(target);
 }
 
-//Constructors & Destructors
-SettingsState::SettingsState(StateData& stateData) :
-        State(stateData), paused(false) {
-    this->initDisplaySettingsMenu();
-    this->initKeyBinds();
-    this->initBackground();
-    this->initButtonNames();
-    this->initButtons();
 
-}
 
 

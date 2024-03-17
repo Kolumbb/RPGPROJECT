@@ -2,5 +2,5 @@
 
 #pragma clang system_header
 #ifdef __cplusplus
-#include "/Users/kolumb/dev/Projects/RPGPROJECT/src/ResourcePath.hpp"
+#include "/Users/kolumb/Desktop/dev/Projects/RPGPROJECT/src/ResourcePath.hpp"
 #endif // __cplusplus

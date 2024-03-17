@@ -33,28 +33,28 @@ Animation::Animation(
 
 //Other public methods
 auto Animation::play(const float& dt) -> const bool& {
-	this->done = false;
-	this->timer += 800.f * dt;
-	if (this->timer >= this->animationTimer) {
-		this->timer = 0.f;
-		if (this->currentRect != this->endRect) { // Animate
-			this->currentRect.left += this->width;
-		}
-		else { //Reset
-			this->currentRect = this->startRect;
-			this->done = true;
-		}
-		this->sprite.setTextureRect(this->currentRect);
-	}
-	return done;
+    this->done = false;
+    this->timer += 800.f * dt;
+    if (this->timer >= this->animationTimer) {
+        this->timer = 0.f;
+        if (this->currentRect != this->endRect) { // Animate
+            this->currentRect.left += this->width;
+        }
+        else { //Reset
+            this->currentRect = this->startRect;
+            this->done = true;
+        }
+        this->sprite.setTextureRect(this->currentRect);
+    }
+    return done;
 }
 
 auto Animation::reset() -> void {
-	this->currentRect = this->startRect;
-	this->timer = this->animationTimer;
+    this->currentRect = this->startRect;
+    this->timer = this->animationTimer;
 }
 
 auto Animation::isDone() const -> const bool&{
-	return this->done;
+    return this->done;
 }
 

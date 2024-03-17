@@ -23,7 +23,7 @@ rule CUSTOM_COMMAND
 # Rule for re-running cmake.
 
 rule RERUN_CMAKE
-  command = /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/bin/cmake --regenerate-during-build -S/Users/kolumb/dev/Projects/RPGPROJECT/cmake-build-debug/_deps/sfml-subbuild -B/Users/kolumb/dev/Projects/RPGPROJECT/cmake-build-debug/_deps/sfml-subbuild
+  command = /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/bin/cmake --regenerate-during-build -S/Users/kolumb/Desktop/dev/Projects/RPGPROJECT/cmake-build-debug/_deps/sfml-subbuild -B/Users/kolumb/Desktop/dev/Projects/RPGPROJECT/cmake-build-debug/_deps/sfml-subbuild
   description = Re-running CMake...
   generator = 1
 

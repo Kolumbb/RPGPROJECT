@@ -22,8 +22,6 @@ public:
 
         //Other methods
         auto move(const float& x, const float& y) -> void;
-        auto jump(const float& x, const float& y) -> void;
-        auto fall(const float& x, const float& y) -> void;
         auto stopVelocity() -> void;
         auto stopVelocityX() -> void;
         auto stopVelocityY() -> void;

@@ -15,3 +15,6 @@ auto Menu::isButtonPressed(const std::string &name) -> bool {
     if(this->buttons[name]->isPressed()) return true;
     else return false;
 }
+Menu::~Menu() {
+  std::cout <<"Menu deleted\n";
+}

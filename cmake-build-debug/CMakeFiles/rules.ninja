@@ -155,7 +155,7 @@ rule CXX_SHARED_LIBRARY_LINKER__sfml-audio_Debug
 # Rule for re-running cmake.
 
 rule RERUN_CMAKE
-  command = /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/bin/cmake --regenerate-during-build -S/Users/kolumb/dev/Projects/RPGPROJECT -B/Users/kolumb/dev/Projects/RPGPROJECT/cmake-build-debug
+  command = /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/bin/cmake --regenerate-during-build -S/Users/kolumb/Desktop/dev/Projects/RPGPROJECT -B/Users/kolumb/Desktop/dev/Projects/RPGPROJECT/cmake-build-debug
   description = Re-running CMake...
   generator = 1
 

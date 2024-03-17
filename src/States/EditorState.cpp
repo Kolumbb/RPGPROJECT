@@ -104,6 +104,7 @@ EditorState::EditorState(StateData& stateData, bool collision, u_short type) :
 }
 
 
+
 //Update methods
 auto EditorState::update(const float& dt) -> void {
     this->timer.updateKeyTime(dt);
@@ -230,7 +231,7 @@ auto EditorState::renderPaused(sf::RenderTarget* target) -> void {
 auto EditorState::renderUnPaused(sf::RenderTarget* target) -> void {
   target->setView(this->gameView);
   this->tileMap->render(target);
-  //target.setView(this->stateData.window->getDefaultView());
+  this->tileMap->renderCollisionBox(target);
   this->renderGui(target);
 }
 

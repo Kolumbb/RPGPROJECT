@@ -7,34 +7,33 @@
 
 class Game{
 private:
-	//Variables & Resources
-	bool quit;
-	sf::Clock clock;
-	sf::Event event;
-	float dt;
-	StateData stateData;
+    //Variables & Resources
+    bool quit;
+    sf::Clock clock;
+    sf::Event event;
+    float dt;
+    StateData stateData;
 
     //Initializers
     auto initStates() -> void;
 	
-	//Update methods
-	auto update(const float& dt) -> void;
-	auto updateEvents() -> void;
-	auto updateDt() -> void;
-
-	//Render methods
-	auto render(sf::RenderTarget* target = nullptr) -> void;
+    //Update methods
+    auto update(const float& dt) -> void;
+    auto updateEvents() -> void;
+    auto updateDt() -> void;
+    //Render method
+    auto render(sf::RenderTarget* target = nullptr) -> void;
 
     //Other private methods
     auto getQuit() -> const bool;
 
 protected:
 public:
-	//Constructors & Destructors
-	Game();
-	~Game() = default;
+    //Constructors & Destructors
+    Game();
+    ~Game() = default;
 
-	//Public methods
-	auto run() ->void;
+    //Public methods
+    auto run() ->void;
 };
 

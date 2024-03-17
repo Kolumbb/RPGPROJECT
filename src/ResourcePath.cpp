@@ -9,9 +9,9 @@ auto my::splitTextByLetter(const std::string& text, char letter) -> std::pair<st
     if (pos == std::string::npos) {
         return {text, ""};  // Return the original text if 'x' is not found
     }
-
     return {text.substr(0, pos), text.substr(pos + 1)};  // Split the text at 'x'
 }
+
 my::Timer::Timer(float keyTime, float keyTimeMax): keyTime(keyTime), keyTimeMax(keyTimeMax){}
 auto my::Timer::getKeyTime() -> bool const {
     if (this->keyTime > this->keyTimeMax) {

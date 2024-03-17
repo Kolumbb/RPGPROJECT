@@ -81,17 +81,6 @@ void MovementComponent::move(const float& x, const float& y){
 	//Increase velocity after button press
 }
 
-void MovementComponent::jump(const float& x, const float& y){
-        this->velocity.x += (this->acceleration) * x;
-        this->velocity.y += (this->acceleration) * y;
-
-}
-
-auto MovementComponent::fall(const float &x, const float &y) -> void {
-  this->velocity.x += this->acceleration * x;
-  this->velocity.y += (20*this->acceleration) * y;
-}
-
 auto MovementComponent::stopVelocity() -> void {
   this->velocity.x = 0.f;
   this->velocity.y = 0.f;
@@ -130,18 +119,18 @@ auto MovementComponent::checkDirection(Direction dir) const -> const bool{
     break;
 
   case Direction::LEFT:
-    if (this->velocity.x > 0.f) return true;
-    break;
-
-  case Direction::RIGHT:
     if (this->velocity.x < 0.f) return true;
     break;
 
-  case Direction::JUMP:
+  case Direction::RIGHT:
+    if (this->velocity.x > 0.f) return true;
+    break;
+
+  case Direction::UP:
     if (this->velocity.y < 0.f) return true;
     break;
 
-  case Direction::FALL:
+  case Direction::DOWN:
     if (this->velocity.y > 0.f) return true;
     break;
   }

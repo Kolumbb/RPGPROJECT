@@ -76,6 +76,10 @@ PauseMenu::PauseMenu(StateData& stateData, const u_short& buttonsWidth, const u_
 	this->initBackground();
 }
 
+PauseMenu::~PauseMenu() {
+  std::cout <<"PauseMenu deleted\n";
+}
+
 
 //Update methods
 auto PauseMenu::update(const float& dt, const sf::Vector2f& mousePosition) -> void {

@@ -22,7 +22,7 @@ class PauseMenu : public Menu {
 		PauseMenu(
             StateData& stateData, const u_short& buttonsWidth, const u_short& characterSize, bool menu = false
         );
-		virtual ~PauseMenu() = default;
+		virtual ~PauseMenu();
 
 
 

@@ -18,12 +18,9 @@ auto GameState::initKeyBinds(const std::filesystem::path& path) -> void {
   file.close();
 }
 
-auto GameState::initPlayer() {
-  this->player = std::make_shared<Player>();
-}
-
-auto GameState::initSlime() {
-  this->slime = std::make_shared<Slime>();
+auto GameState::initEntities() -> void {
+    this->entities["Player"] = std::make_shared<Player>(sf::Vector2f(200, 400));
+    this->entities["Slime"] = std::make_shared<Slime>(sf::Vector2f(300, 300));
 }
 
 auto GameState::initPausedMenu() -> void {
@@ -69,8 +66,7 @@ auto GameState::initBufferedRender() -> void {
 GameState::GameState(StateData& state_data) : State(state_data), paused(false) {
   this->initKeyBinds();
   this->initPausedMenu();
-  this->initPlayer();
-  this->initSlime();
+  this->initEntities();
   this->initTileMap();
   this->initView();
   this->initBufferedRender();
@@ -97,9 +93,9 @@ auto GameState::update(const float& dt) -> void {
 auto GameState::updateUnPaused(const float& dt) -> void {
   this->updateView();
   this->updateTileMap(dt);
-  this->player->update(dt);
-  this->slime->update(dt);
-  this->updateUserInput(dt);
+  for(auto it : this->entities)
+      it.second->update(dt);
+  this->updateUserInput();
 }
 
 //Update Paused
@@ -108,47 +104,35 @@ auto GameState::updatePaused(const float& dt) -> void {
   this->updateButtons(dt);
 }
 
-auto GameState::updateUserInput(const float& dt) -> void {
-  if (!this->player->getAttack()) {
+auto GameState::updateUserInput() -> void {
+    if (!this->entities["Player"]->getAttack()) {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keyBinds["MOVE_RIGHT"])))
-      this->player->move(1, 0);
+        this->entities["Player"]->move(1, 0);
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keyBinds["MOVE_LEFT"])))
-      this->player->move(-1, 0);
-  }
-
-  if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->timer.getKeyTime())
-    this->player->setAttack();
-
-  if (!this->player->getJump()){
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keyBinds["MOVE_UP"])) &&this->timer.getKeyTime())
-      this->player->setJump();
-
-    if(!this->player->getJump()) this->player->fall();
-    this->slime->fall();
-  }
-
-
-
-
+        this->entities["Player"]->move(-1, 0);
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keyBinds["MOVE_UP"])))
+        this->entities["Player"]->move(0, -1);
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keyBinds["MOVE_DOWN"]))) {
+        this->entities["Player"]->move(0, 1);
+        }
+    }
 
 }
 
 auto GameState::updateKeyBindsInput(const float& dt) -> void {
-  if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keyBinds["CLOSE"])) &&
-      this->timer.getKeyTime())
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keyBinds["CLOSE"])) &&this->timer.getKeyTime())
     if (!this->paused)
-      this->paused = true;
+        this->paused = true;
     else
-      this->paused = false;
+        this->paused = false;
 }
 
 auto GameState::updateView() -> void {
-  this->gameView.setCenter(this->player->getPositionF());
+    this->gameView.setCenter(this->entities["Player"]->getPositionF());
 }
 
 auto GameState::updateTileMap(const float& dt) -> void {
-  this->map->update(dt, this->player, this->slime);
-
+    this->map->update(dt, this->entities);
 }
 
 //Render methods
@@ -161,7 +145,6 @@ this->renderTexture.clear();
   this->renderTexture.display();
   this->renderSprite.setTexture(this->renderTexture.getTexture());
   target->draw(this->renderSprite);
-
 }
 
 auto GameState::renderPaused(sf::RenderTarget* target) -> void {
@@ -171,9 +154,10 @@ auto GameState::renderPaused(sf::RenderTarget* target) -> void {
 
 auto GameState::renderUnPaused(sf::RenderTarget* target) -> void {
   this->renderTexture.setView(this->gameView);
-  this->map->render(&this->renderTexture, this->player);
-  this->player->render(&this->renderTexture);
-  this->slime->render(&this->renderTexture);
+  this->map->render(&this->renderTexture);
+
+  for(auto& it :this->entities)
+      it.second->render(&this->renderTexture);
 }
 
 auto GameState::updateButtons(const float &dt) -> void {
@@ -182,4 +166,5 @@ auto GameState::updateButtons(const float &dt) -> void {
   else if (this->pMenu->isButtonPressed("Resume"))
     this->paused = !this->paused;
 }
+
 

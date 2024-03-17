@@ -8,15 +8,15 @@
 class Slime : public Entity {
 private:
   // Variables
-
+  int limiter;
 
   // Initializers
   auto initTexture(const std::filesystem::path &path =
                        "../Resources/gameState/slime-Sheet.png") -> void;
-  auto initSprite() -> void;
-  auto initHitboxComponent() -> void;
-  auto initMovementComponent() -> void;
-  auto initAnimationComponent() -> void;
+  auto initSprite(const sf::Vector2f& startPos) -> void;
+  auto initHitBoxComp() -> void;
+  auto initMovementComp() -> void;
+  auto initAnimationComp() -> void;
 
   // Private methods
 
@@ -24,22 +24,19 @@ private:
 protected:
 public:
   // Constructors & Destructors
-  Slime(Entities entity = Entities::Slime);
-  ~Slime() = default;
-  int limiter;
-  int direction;
+  Slime(const sf::Vector2f& startPos);
+  ~Slime() override = default;
+
 
   // Uprade methods
-  auto update(const float &dt) -> void;
+  auto update(const float &dt) -> void override;
   auto updateInputForAnimation(const float &dt) -> void;
 
   // Render methods
-  auto render(sf::RenderTarget* target) -> void;
+  auto render(sf::RenderTarget* target) -> void override;
 
   // Other methods
   auto move(const float &x, const float &y) -> void;
-
-  auto fall(const float &x = 0.f, const float &y = 1.f) -> void;
 
 
 

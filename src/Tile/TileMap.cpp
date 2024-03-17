@@ -17,8 +17,6 @@ TileMap::TileMap(const float& gridSizeF, u_short width, u_short height)
       layers(1), gameSize(sf::Vector2u(width, height)),
     gameSizeInPixels(sf::Vector2u (width * this->gridSizeU, height * this->gridSizeU)){
 
-
-
     this->tileMap.resize(this->gameSize.x, std::vector<std::vector<std::shared_ptr<Tile>>>());
     for(auto x = 0 ; x < this->gameSize.x ; x++){
         for(auto y = 0 ; y < this->gameSize.y ; y++) {
@@ -28,211 +26,139 @@ TileMap::TileMap(const float& gridSizeF, u_short width, u_short height)
             }
         }
     }
-
-
     this->initTexturePacks();
     this->initCollisionBox();
 }
 
 //Update methods
-auto TileMap::update(const float& dt, std::shared_ptr<Player> hero, std::shared_ptr<Slime> slime) -> void {
-  this->updateWorldBoundsCollisions(hero);
-  this->updateWorldBoundsCollisions(slime);
+auto TileMap::update(const float& dt, std::map<std::string, std::shared_ptr<Entity>>& mapOfEntities) -> void {
+    for(auto& it : mapOfEntities)
+        this->updateWorldBoundsCollisions(it.second);
 
-  this->updateCulling(hero, slime);
-  this->updateTileCollisions(dt, hero);
-  this->updateTileCollisions(dt, slime);
+    for(auto& it : mapOfEntities)
+    this->updateCulling(it.second);
+    for(auto& it : mapOfEntities)
+        this->updateTileCollisions(dt, it.second);
 }
 
-auto TileMap::updateWorldBoundsCollisions(std::shared_ptr<Entity> entity) -> void {
-  //Game map bounds
-  if (entity->getPositionF().x < 0.f){
-    entity->setPosition(0.f, entity->getPositionF().y);
-    entity->stopVelocityX();
-  }
-  else if (entity->getPositionF().x + entity->getGlobalBounds().width > this->gameSizeInPixels.x){
-    entity->setPosition(this->gameSizeInPixels.x - entity->getGlobalBounds().width, entity->getPositionF().y);
-    entity->stopVelocityX();
-  }
-  if (entity->getPositionF().y < 0.f){
-    entity->setPosition(entity->getPositionF().x, 0.f);
-    entity->stopVelocityY();
-  }
+auto TileMap::updateWorldBoundsCollisions(std::shared_ptr<Entity>& entity) -> void {
+    //Game map bounds
+    if (entity->getPositionF().x < 0.f){
+        entity->setPosition(0.f, entity->getPositionF().y);
+        entity->stopVelocityX();
+    }
+    else if (entity->getPositionF().x + entity->getGlobalBounds().width > this->gameSizeInPixels.x){
+        entity->setPosition(this->gameSizeInPixels.x - entity->getGlobalBounds().width, entity->getPositionF().y);
+        entity->stopVelocityX();
+    }
+    if (entity->getPositionF().y < 0.f){
+        entity->setPosition(entity->getPositionF().x, 0.f);
+        entity->stopVelocityY();
+    }
   else if (entity->getPositionF().y + entity->getGlobalBounds().height > this->gameSizeInPixels.y){
-    entity->setPosition(entity->getPositionF().x, this->gameSizeInPixels.y - entity->getGlobalBounds().height);
-    entity->stopVelocityY();
-  }
+        entity->setPosition(entity->getPositionF().x, this->gameSizeInPixels.y - entity->getGlobalBounds().height);
+        entity->stopVelocityY();
+    }
 }
 
-auto TileMap::updateCulling(std::shared_ptr<Entity> entity, std::shared_ptr<Entity> entity2) -> void {
-
-    this->playerCulling.fromX = entity->getGridPosition(this->gridSizeU).x - 1;
-    if (this->playerCulling.fromX < 0)
-      this->playerCulling.fromX = 0;
-    else if (this->playerCulling.fromX > this->gameSizeInPixels.x)
-      this->playerCulling.fromX = this->gameSizeInPixels.x;
-
-    this->slimeCulling.fromX = entity2->getGridPosition(this->gridSizeU).x - 1;
-    if (this->slimeCulling.fromX < 0)
-      this->slimeCulling.fromX = 0;
-    else if (this->slimeCulling.fromX > this->gameSizeInPixels.x)
-      this->slimeCulling.fromX = this->gameSizeInPixels.x;
-
-    this->playerCulling.toX = entity->getGridPosition(this->gridSizeU).x + 3;
-    if (this->playerCulling.toX < 0)
-      this->playerCulling.toX = 0;
-    else if (this->playerCulling.toX > this->gameSizeInPixels.x)
-      this->playerCulling.toX = this->gameSizeInPixels.x;
-
-    this->slimeCulling.toX = entity2->getGridPosition(this->gridSizeU).x + 2;
-    if (this->slimeCulling.toX < 0)
-      this->slimeCulling.toX = 0;
-    else if (this->slimeCulling.toX > this->gameSizeInPixels.x)
-      this->slimeCulling.toX = this->gameSizeInPixels.x;
-
-    this->playerCulling.fromY = entity->getGridPosition(this->gridSizeU).y - 1;
-    if (this->playerCulling.fromY < 0)
-      this->playerCulling.fromY = 0;
-    else if (this->playerCulling.fromY > this->gameSizeInPixels.y)
-      this->playerCulling.fromY = this->gameSizeInPixels.y;
-
-    this->slimeCulling.fromY = entity2->getGridPosition(this->gridSizeU).y -1;
-    if (this->slimeCulling.fromY < 0)
-      this->slimeCulling.fromY = 0;
-    else if (this->slimeCulling.fromY > this->gameSizeInPixels.y)
-      this->slimeCulling.fromY = this->gameSizeInPixels.y;
-
-    this->playerCulling.toY = entity->getGridPosition(this->gridSizeU).y + 2;
-    if (this->playerCulling.toY < 0)
-      this->playerCulling.toY = 0;
-    else if (this->playerCulling.toY > this->gameSizeInPixels.y)
-      this->playerCulling.toY = this->gameSizeInPixels.y;
-
-    this->slimeCulling.toY = entity2->getGridPosition(this->gridSizeU).y + 1;
-    if (this->slimeCulling.toY < 0)
-      this->slimeCulling.toY = 0;
-    else if (this->slimeCulling.toY > this->gameSizeInPixels.y)
-      this->slimeCulling.toY = this->gameSizeInPixels.y;
-
-  }
-
-
-
-auto TileMap::updateTileCollisions(const float& dt, std::shared_ptr<Entity> entity) -> void {
-  for (int x = this->playerCulling.fromX; x < this->playerCulling.toX; x++) {
-    for (int y = this->playerCulling.fromY; y < this->playerCulling.toY; y++) {
-      if (this->tileMap[x][y][this->playerCulling.layer] != nullptr) {
-        auto playerBounds = entity->getGlobalBounds();
-        sf::FloatRect wallBounds = this->tileMap[x][y][this->playerCulling.layer]->getGlobalBounds();
-        sf::FloatRect nextPositionBounds = entity->getNextPosition(dt);
-
-        if (this->tileMap[x][y][this->playerCulling.layer]->getCollision() &&
-            this->tileMap[x][y][this->playerCulling.layer]->intersects(
-                nextPositionBounds)) {
-          //Bottom collision
-          if (playerBounds.top < wallBounds.top && playerBounds.top + playerBounds.height < wallBounds.top + wallBounds.height){
-            if(!entity->getJump()) entity->stopVelocityY();
-          }
-          //Top collision
-          else {
-            if (playerBounds.top > wallBounds.top && playerBounds.top + playerBounds.height > wallBounds.top + wallBounds.height) {
-              if(!entity->getJump()) entity->stopVelocityY();
-            }
-            // Right collision
-            if (playerBounds.left < wallBounds.left && playerBounds.left + playerBounds.width < wallBounds.left + wallBounds.width)
-              entity->stopVelocityX();
-
-            // Left collision
-            else if (playerBounds.left > wallBounds.left &&
-                     playerBounds.left + playerBounds.width > wallBounds.left + wallBounds.width &&
-                     playerBounds.top < wallBounds.top + wallBounds.height && playerBounds.top + playerBounds.height > wallBounds.top) {
-              entity->stopVelocityX();
-              entity->setPosition(entity->getPositionF().x,entity->getPositionF().y);
-            }
-          }
-        }
-      }
+auto TileMap::updateCulling(std::shared_ptr<Entity>& entity) -> void {
+    entity->setCullingFromX(entity->getGridPosition(this->gridSizeU).x - 1);
+    if (entity->getCulling().fromX < 0) {
+        entity->setCullingFromX(0.f);
     }
-  }
+    else if (entity->getCulling().fromX > this->gameSizeInPixels.x)
+        entity->setCullingFromX(this->gameSizeInPixels.x);
 
-  for (int x = this->slimeCulling.fromX; x < this->slimeCulling.toX; x++) {
-    for (int y = this->slimeCulling.fromY; y < this->slimeCulling.toY; y++) {
-      if (this->tileMap[x][y][this->slimeCulling.layer] != nullptr) {
-        auto playerBounds = entity->getGlobalBounds();
-        sf::FloatRect wallBounds = this->tileMap[x][y][this->slimeCulling.layer]->getGlobalBounds();
-        sf::FloatRect nextPositionBounds = entity->getNextPosition(dt);
-
-        if (this->tileMap[x][y][this->slimeCulling.layer]->getCollision() &&
-            this->tileMap[x][y][this->slimeCulling.layer]->intersects(
-                nextPositionBounds)) {
-          //Bottom collision
-          if (playerBounds.top < wallBounds.top)
-          {
-            if(!entity->getJump()){
-              entity->stopVelocityY();
-            }
-          }
-          //Top collision
-          else {
-            if (
-                playerBounds.top > wallBounds.top &&
-                playerBounds.top + playerBounds.height >
-                    wallBounds.top + wallBounds.height) {
-              if(!entity->getJump()){
-                entity->stopVelocityY();
-              }
-            }
-            // Right collision
-            if (playerBounds.left < wallBounds.left &&
-                playerBounds.left + playerBounds.width <
-                    wallBounds.left + wallBounds.width) {
-              entity->stopVelocityX();
-            }
-            // Left collision
-            else if (playerBounds.left > wallBounds.left &&
-                     playerBounds.left + playerBounds.width >
-                         wallBounds.left + wallBounds.width &&
-                     playerBounds.top < wallBounds.top + wallBounds.height &&
-                     playerBounds.top + playerBounds.height > wallBounds.top) {
-              entity->stopVelocityX();
-            }
-          }
-        }
-      }
+    entity->setCullingToX(entity->getGridPosition(this->gridSizeU).x + 3);
+    if (entity->getCulling().toX < 0) {
+        entity->setCullingToX(0.f);
     }
-  }
+    else if (entity->getCulling().toX > this->gameSizeInPixels.x)
+        entity->setCullingToX(this->gameSizeInPixels.x);
+
+
+    entity->setCullingFromY(entity->getGridPosition(this->gridSizeU).y - 1);
+    if (entity->getCulling().fromY < 0) {
+        entity->setCullingFromY(0.f);
+    }
+    else if (entity->getCulling().fromY > this->gameSizeInPixels.y)
+        entity->setCullingFromY(this->gameSizeInPixels.y);
+
+    entity->setCullingToY(entity->getGridPosition(this->gridSizeU).y + 2);
+    if (entity->getCulling().toY < 0) {
+        entity->setCullingToY(0.f);
+    }
+    else if (entity->getCulling().toY > this->gameSizeInPixels.y)
+        entity->setCullingToY(this->gameSizeInPixels.y);
 }
+
+
+
+auto TileMap::updateTileCollisions(const float& dt, std::shared_ptr<Entity>& entity) -> void {
+    for (int x = entity->getCulling().fromX; x < entity->getCulling().toX; x++) {
+        for (int y = entity->getCulling().fromY; y < entity->getCulling().toY; y++) {
+            if (this->tileMap[x][y][entity->getCulling().layer] != nullptr) {
+                auto playerBounds = entity->getGlobalBounds();
+                sf::FloatRect wallBounds = this->tileMap[x][y][entity->getCulling().layer]->getGlobalBounds();
+                sf::FloatRect nextPositionBounds = entity->getNextPosition(dt);
+
+                if (this->tileMap[x][y][entity->getCulling().layer]->getCollision() &&
+                    this->tileMap[x][y][entity->getCulling().layer]->intersects(
+                            nextPositionBounds)) {
+                    //Bottom collision
+                    if (playerBounds.top < wallBounds.top && playerBounds.top + playerBounds.height < wallBounds.top + wallBounds.height)
+                        entity->stopVelocityY();
+
+                        //Top collision
+                    if (playerBounds.top > wallBounds.top && playerBounds.top + playerBounds.height > wallBounds.top + wallBounds.height)
+                        entity->stopVelocityY();
+
+                        // Right collision
+                    if (playerBounds.left < wallBounds.left && playerBounds.left + playerBounds.width < wallBounds.left + wallBounds.width)
+                        entity->stopVelocityX();
+
+                        // Left collision
+                    if (playerBounds.left > wallBounds.left &&
+                             playerBounds.left + playerBounds.width > wallBounds.left + wallBounds.width &&
+                             playerBounds.top < wallBounds.top + wallBounds.height && playerBounds.top + playerBounds.height > wallBounds.top) {
+                        entity->stopVelocityX();
+                    }
+
+                }
+            }
+        }
+    }
+}
+
+auto updateEntitiesCollisions(std::map<std::string, std::shared_ptr<Entity>>& mapOfEntities) -> void{
+
+}
+
 
 
 //Render methods
-auto TileMap::render(sf::RenderTarget* target, std::shared_ptr<Entity> entity) -> void {
+auto TileMap::render(sf::RenderTarget* target) -> void {
     for (int x = 0; x < this->gameSize.x; x++)
-      for (int y = 0; y < this->gameSize.y; y++)
-        for (int z = 0; z < this->layers; z++) {
-          if (tileMap[x][y][z] != nullptr) {
-            tileMap[x][y][z]->render(target);
-          }
-        }
-  }
-  //}
+        for (int y = 0; y < this->gameSize.y; y++)
+            for (int z = 0; z < this->layers; z++) {
+                if (this->tileMap[x][y][z] != nullptr) {
+                    this->tileMap[x][y][z]->render(target);
+                    if (this->tileMap[x][y][z]->getCollision())
+                    this->tileMap[x][y][z]->renderCollisionBox(target);
+                }
+            }
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+auto TileMap::renderCollisionBox(sf::RenderTarget* target) const -> void{
+    for (int x = 0; x < this->gameSize.x; x++)
+        for (int y = 0; y < this->gameSize.y; y++)
+            for (int z = 0; z < this->layers; z++) {
+                if (this->tileMap[x][y][z] != nullptr) {
+                    if(this->tileMap[x][y][z]->getCollision())
+                        this->tileMap[x][y][z]->renderCollisionBox(target);
+                }
+            }
+}
 
 //Other public methods
 auto TileMap::addTile(

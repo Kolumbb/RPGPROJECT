@@ -73,6 +73,8 @@ MainMenuState::MainMenuState(StateData& stateData) : State(stateData) {
         this->initButtons(this->stateData.font);
     }
 
+
+
 //Update methods
 auto MainMenuState::update(const float& dt) -> void {
 	this->timer.updateKeyTime(dt);

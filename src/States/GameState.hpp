@@ -17,18 +17,16 @@ private:
   sf::Sprite renderSprite;
   bool paused;
   std::unique_ptr<PauseMenu> pMenu;
+  std::map<std::string, std::shared_ptr<Entity>> entities;
   std::shared_ptr<Player> player;
   std::shared_ptr<Slime> slime;
-
   std::shared_ptr<TileMap> map;
 
   // Accessors & Modifiers
 
   // Initializers
-  auto initKeyBinds(const std::filesystem::path &path =
-                        "../Resources/Config/key_binds_gamestate.ini") -> void;
-  auto initPlayer();
-  auto initSlime();
+  auto initKeyBinds(const std::filesystem::path &path = "../Resources/Config/key_binds_gamestate.ini") -> void;
+  auto initEntities() -> void;
   auto initPausedMenu() -> void;
   auto initView() -> void;
   auto initBufferedRender() -> void;
@@ -37,13 +35,12 @@ private:
   auto update(const float &dt) -> void;
   auto updateButtons(const float &dt) -> void;
   auto updatePaused(const float &dt) -> void;
-  auto updateUserInput(const float &dt) -> void;
+  auto updateUserInput() -> void;
   auto updateUnPaused(const float &dt) -> void;
   auto updateKeyBindsInput(const float &dt) -> void;
   auto updateView() -> void;
 
   auto updateTileMap(const float& dt) -> void;
-
   // Render methods
   auto render(sf::RenderTarget* target) -> void;
   auto renderPaused(sf::RenderTarget* target) -> void;
@@ -53,6 +50,5 @@ protected:
 public:
   explicit GameState(StateData &state_data);
   ~GameState() = default;
-
 };
 

@@ -17,34 +17,33 @@ private:
 	
 protected:
 
-	//Protected Variables & Resources
-	std::map<std::string, int> keyBinds;
-	StateData& stateData;
-	sf::Texture texture;
-        my::Timer timer;
-      std::vector<std::string>buttonNames;
-      //For general purposes
-      sf::Vector2f mousePosWindow;
-      sf::Vector2u mousePosU;
-      //For Game view purposes
-      sf::Vector2u mousePosGrid;
-	//Protected Initializers
-
+    //Protected Variables & Resources
+    std::map<std::string, int> keyBinds;
+    StateData& stateData;
+    sf::Texture texture;
+    my::Timer timer;
+    std::vector<std::string>buttonNames;
+    //For general purposes
+    sf::Vector2f mousePosWindow;
+    sf::Vector2u mousePosU;
 protected:
+
+    //For Game view purposes
+    //Protected Initializers
+    sf::Vector2u mousePosGrid;
     //Protected update methods
     auto updateMousePos(const sf::View& view) -> void;
 public:
-	
-	//Constructors & Destructors
-    explicit State(StateData& stateData);
-	virtual ~State() = default;
 
-     //Public Update methods
-     virtual auto update(const float& dt) -> void = 0;
+    //Constructors & Destructors
+    State(StateData& stateData);
+    virtual ~State() = default;
+
+    //Public Update methods
+    virtual auto update(const float& dt) -> void = 0;
 
 
-	//Public Render methods
-	virtual auto render(sf::RenderTarget* target) -> void = 0;
-
+    //Public Render methods
+    virtual auto render(sf::RenderTarget* target) -> void = 0;
 
 };

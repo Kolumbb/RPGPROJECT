@@ -1,4 +1,4 @@
-# Install script for directory: /Users/kolumb/dev/Projects/RPGPROJECT/cmake-build-debug/_deps/sfml-src/src/SFML/System
+# Install script for directory: /Users/kolumb/Desktop/dev/Projects/RPGPROJECT/cmake-build-debug/_deps/sfml-src/src/SFML/System
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -39,8 +39,8 @@ endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "bin" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE SHARED_LIBRARY FILES
-    "/Users/kolumb/dev/Projects/RPGPROJECT/cmake-build-debug/_deps/sfml-build/lib/libsfml-system-d.2.6.1.dylib"
-    "/Users/kolumb/dev/Projects/RPGPROJECT/cmake-build-debug/_deps/sfml-build/lib/libsfml-system-d.2.6.dylib"
+    "/Users/kolumb/Desktop/dev/Projects/RPGPROJECT/cmake-build-debug/_deps/sfml-build/lib/libsfml-system-d.2.6.1.dylib"
+    "/Users/kolumb/Desktop/dev/Projects/RPGPROJECT/cmake-build-debug/_deps/sfml-build/lib/libsfml-system-d.2.6.dylib"
     )
   foreach(file
       "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libsfml-system-d.2.6.1.dylib"
@@ -56,6 +56,6 @@ if(CMAKE_INSTALL_COMPONENT STREQUAL "bin" OR NOT CMAKE_INSTALL_COMPONENT)
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "bin" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE SHARED_LIBRARY FILES "/Users/kolumb/dev/Projects/RPGPROJECT/cmake-build-debug/_deps/sfml-build/lib/libsfml-system-d.dylib")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE SHARED_LIBRARY FILES "/Users/kolumb/Desktop/dev/Projects/RPGPROJECT/cmake-build-debug/_deps/sfml-build/lib/libsfml-system-d.dylib")
 endif()
 

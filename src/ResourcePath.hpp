@@ -53,35 +53,35 @@
 #include <map>
 #include <cmath>
 #include <filesystem>
+
 class State;
-
-
 typedef unsigned short u_short;
-enum class Direction { IDLE = 0, LEFT, RIGHT, JUMP, FALL };
+enum class Direction { IDLE = 0, LEFT, RIGHT, UP, DOWN };
 enum class Destination {MAINMENU = 0, GAME, SETTINGS};
 enum TileType {DEFAULT = 0, LAVA, GRASS, WATER, ICE};
 enum class Entities{Hero = 0, Slime = 1};
 namespace my {
 
 struct Timer {
-  float keyTime;
-  float keyTimeMax;
+    float keyTime;
+    float keyTimeMax;
 
-  Timer(float keyTime = 0.f, float keyTimeMax = 1.f);
-  ~Timer() = default;
-  auto updateKeyTime(const float &dt) -> void;
+    Timer(float keyTime = 0.f, float keyTimeMax = 1.f);
+    ~Timer() = default;
 
-  auto getKeyTime() -> bool const;
+    auto updateKeyTime(const float &dt) -> void;
+    auto getKeyTime() -> bool const;
 };
+
 struct Culling {
-  int fromX;
-  int toX;
-  int fromY;
-  int toY;
-  int layer;
-  Culling(int formX = 0, int toX = 0, int fromY = 0, int toY = 0,
+    int fromX;
+    int toX;
+    int fromY;
+    int toY;
+    int layer;
+    Culling(int formX = 0, int toX = 0, int fromY = 0, int toY = 0,
           int layer = 0);
-  ~Culling() = default;
+    ~Culling() = default;
 };
 auto splitTextByLetter(const std::string &text, char letter)
     -> std::pair<std::string, std::string>;
