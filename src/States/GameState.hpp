@@ -17,10 +17,8 @@ private:
   sf::Sprite renderSprite;
   bool paused;
   std::unique_ptr<PauseMenu> pMenu;
-  std::map<std::string, std::shared_ptr<Entity>> entities;
-  std::shared_ptr<Player> player;
-  std::shared_ptr<Slime> slime;
-  std::shared_ptr<TileMap> map;
+  std::vector<std::shared_ptr<Entity>> entities;
+  std::unique_ptr<TileMap> map;
 
   // Accessors & Modifiers
 

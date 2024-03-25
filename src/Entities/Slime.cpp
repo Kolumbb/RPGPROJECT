@@ -28,7 +28,7 @@ auto Slime::initSprite(const sf::Vector2f& startPos) -> void {
 }
 
 auto Slime::initHitBoxComp() -> void{
-  this->hitboxComponent = std::make_unique<HitBoxComponent>(*this->sprite, -12.f, 21.f, 35.f, 25.f);
+  this->hitboxComponent = std::make_unique<HitBoxComponent>(*this->sprite, 0.f, 21.f, 35.f, 25.f);
 }
 
 //Constructors & Destructors
@@ -48,12 +48,17 @@ auto Slime::update(const float& dt) -> void {
 }
 
 auto Slime::updateInputForAnimation(const float& dt) -> void {
-  if (this->movementComponent->checkDirection(Direction::LEFT) ||
-      this->movementComponent->checkDirection(Direction::RIGHT)) {
-    this->animationComponent->play("RUN", dt);
-  }
+    if (this->movementComponent->checkDirection(Direction::LEFT) ||
+        this->movementComponent->checkDirection(Direction::RIGHT)) {
+        this->animationComponent->play("RUN", dt);
+    }
+    //this->updateMovingPath();
 
-  // Slime movements
+
+}
+
+auto Slime::updateMovingPath() -> void {
+    // Slime movements
     if (this->limiter < 200) {
         this->limiter++;
         this->movementComponent->move(this->direction * 2.f, 0);
@@ -74,3 +79,5 @@ auto Slime::render(sf::RenderTarget* target) -> void {
 auto Slime::move(const float& x, const float& y) -> void {
   this->movementComponent->move(x, y);
 }
+
+

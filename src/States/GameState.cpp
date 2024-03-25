@@ -19,8 +19,8 @@ auto GameState::initKeyBinds(const std::filesystem::path& path) -> void {
 }
 
 auto GameState::initEntities() -> void {
-    this->entities["Player"] = std::make_shared<Player>(sf::Vector2f(200, 400));
-    this->entities["Slime"] = std::make_shared<Slime>(sf::Vector2f(300, 300));
+    this->entities.push_back(std::make_shared<Player>(sf::Vector2f(200, 400)));
+    this->entities.push_back(std::make_shared<Slime>(sf::Vector2f(300, 300)));
 }
 
 auto GameState::initPausedMenu() -> void {
@@ -28,7 +28,7 @@ auto GameState::initPausedMenu() -> void {
 }
 
 auto GameState::initTileMap() -> void {
-  this->map = std::make_shared<TileMap>(this->stateData.gridSizeF, 150, 50);
+  this->map = std::make_unique<TileMap>(this->stateData.gridSizeF, 150, 50);
   this->map->loadMapFromFile();
 }
 
@@ -94,7 +94,7 @@ auto GameState::updateUnPaused(const float& dt) -> void {
   this->updateView();
   this->updateTileMap(dt);
   for(auto it : this->entities)
-      it.second->update(dt);
+      it->update(dt);
   this->updateUserInput();
 }
 
@@ -105,15 +105,15 @@ auto GameState::updatePaused(const float& dt) -> void {
 }
 
 auto GameState::updateUserInput() -> void {
-    if (!this->entities["Player"]->getAttack()) {
+    if (!this->entities[0]->getAttack()) {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keyBinds["MOVE_RIGHT"])))
-        this->entities["Player"]->move(1, 0);
+        this->entities[0]->move(1, 0);
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keyBinds["MOVE_LEFT"])))
-        this->entities["Player"]->move(-1, 0);
+        this->entities[0]->move(-1, 0);
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keyBinds["MOVE_UP"])))
-        this->entities["Player"]->move(0, -1);
+        this->entities[0]->move(0, -1);
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keyBinds["MOVE_DOWN"]))) {
-        this->entities["Player"]->move(0, 1);
+        this->entities[0]->move(0, 1);
         }
     }
 
@@ -128,11 +128,12 @@ auto GameState::updateKeyBindsInput(const float& dt) -> void {
 }
 
 auto GameState::updateView() -> void {
-    this->gameView.setCenter(this->entities["Player"]->getPositionF());
+    this->gameView.setCenter(this->entities[0]->getPositionF());
 }
 
 auto GameState::updateTileMap(const float& dt) -> void {
     this->map->update(dt, this->entities);
+
 }
 
 //Render methods
@@ -157,7 +158,7 @@ auto GameState::renderUnPaused(sf::RenderTarget* target) -> void {
   this->map->render(&this->renderTexture);
 
   for(auto& it :this->entities)
-      it.second->render(&this->renderTexture);
+      it->render(&this->renderTexture);
 }
 
 auto GameState::updateButtons(const float &dt) -> void {

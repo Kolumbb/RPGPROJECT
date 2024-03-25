@@ -7,9 +7,7 @@ auto TileMap::initTexturePacks(const std::filesystem::path& path) -> void {
     this->tileSheet = std::make_unique<sf::Texture>();
     this->tileSheet->loadFromFile(path.string());
 }
-auto TileMap::initCollisionBox() -> void {
 
-}
 
 //Constructors & Destructores
 TileMap::TileMap(const float& gridSizeF, u_short width, u_short height)
@@ -27,18 +25,20 @@ TileMap::TileMap(const float& gridSizeF, u_short width, u_short height)
         }
     }
     this->initTexturePacks();
-    this->initCollisionBox();
 }
 
 //Update methods
-auto TileMap::update(const float& dt, std::map<std::string, std::shared_ptr<Entity>>& mapOfEntities) -> void {
+auto TileMap::update(const float& dt, std::vector<std::shared_ptr<Entity>>& mapOfEntities) -> void {
     for(auto& it : mapOfEntities)
-        this->updateWorldBoundsCollisions(it.second);
+        this->updateWorldBoundsCollisions(it);
 
     for(auto& it : mapOfEntities)
-    this->updateCulling(it.second);
-    for(auto& it : mapOfEntities)
-        this->updateTileCollisions(dt, it.second);
+    this->updateCulling(it);
+    for(auto& it : mapOfEntities){
+        this->updateTileCollisions(dt, it);
+    }
+    this->checkEntitiesCollisions(mapOfEntities);
+
 }
 
 auto TileMap::updateWorldBoundsCollisions(std::shared_ptr<Entity>& entity) -> void {
@@ -94,7 +94,7 @@ auto TileMap::updateCulling(std::shared_ptr<Entity>& entity) -> void {
 
 
 
-auto TileMap::updateTileCollisions(const float& dt, std::shared_ptr<Entity>& entity) -> void {
+auto TileMap::updateTileCollisions(const float& dt, const std::shared_ptr<Entity>& entity) -> void {
     for (int x = entity->getCulling().fromX; x < entity->getCulling().toX; x++) {
         for (int y = entity->getCulling().fromY; y < entity->getCulling().toY; y++) {
             if (this->tileMap[x][y][entity->getCulling().layer] != nullptr) {
@@ -123,16 +123,47 @@ auto TileMap::updateTileCollisions(const float& dt, std::shared_ptr<Entity>& ent
                              playerBounds.top < wallBounds.top + wallBounds.height && playerBounds.top + playerBounds.height > wallBounds.top) {
                         entity->stopVelocityX();
                     }
-
                 }
             }
         }
     }
 }
 
-auto updateEntitiesCollisions(std::map<std::string, std::shared_ptr<Entity>>& mapOfEntities) -> void{
+auto TileMap::checkEntitiesCollisions(std::vector<std::shared_ptr<Entity>>& mapOfEntities) -> void {
+    for (auto i = 1; i < mapOfEntities.size(); i++) {
+        if (abs(mapOfEntities[0]->getPositionF().x - mapOfEntities[i]->getPositionF().x) < 100 &&
+            abs(mapOfEntities[0]->getPositionF().y - mapOfEntities[i]->getPositionF().y) < 100) {
+            std::cout << "I see you\n";
+            auto playerBounds = mapOfEntities[0]->getGlobalBounds();
+            auto monsterBounds = mapOfEntities[1]->getGlobalBounds();
+            //TOP collision
+            if (playerBounds.top < monsterBounds.top + monsterBounds.height)
 
+                mapOfEntities[0]->stopVelocityY();
+//            else if (playerBounds.top + playerBounds.height < monsterBounds.top )
+//                mapOfEntities[0]->stopVelocityY();
+
+            //Bottom collision
+//
+//            // Left collision
+//            if (playerBounds.left < monsterBounds.left + monsterBounds.width)
+//                mapOfEntities[0]->stopVelocityX();
+//
+//            // Right collision
+//            if (playerBounds.left + playerBounds.width > monsterBounds.left) {
+//                mapOfEntities[0]->stopVelocityX();
+            //}
+
+        }
+    }
 }
+
+
+
+
+
+
+
 
 
 
@@ -285,6 +316,8 @@ void TileMap::loadMapFromFile(const std::filesystem::path &path) {
     }
     ifs.close();
 }
+
+
 
 //Accessors & Modifiers
 

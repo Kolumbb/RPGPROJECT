@@ -35,10 +35,8 @@ auto gui::Button::getText() const -> std::string const{
 }
 
 //Modifiers
-
-
 auto gui::Button::setText(const std::string& text) -> void{
-	this->text.setString(text);
+    this->text.setString(text);
 }
 
 

@@ -31,6 +31,8 @@ public:
   // Uprade methods
   auto update(const float &dt) -> void override;
   auto updateInputForAnimation(const float &dt) -> void;
+  auto updateMovingPath() -> void;
+
 
   // Render methods
   auto render(sf::RenderTarget* target) -> void override;

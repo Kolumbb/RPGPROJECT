@@ -18,23 +18,22 @@ private:
     std::shared_ptr<sf::Texture> tileSheet;
 
 
-    //Methods
-
     //Initializers
     auto initTexturePacks(const std::filesystem::path& path = "../Resources/editorState/Tileset1.png") -> void;
     auto initCollisionBox() -> void;
-protected:
+
+    //Private update Methods
+    auto updateWorldBoundsCollisions(std::shared_ptr<Entity>& entity) -> void;
+    auto updateCulling(std::shared_ptr<Entity>& entity) -> void;
+    auto updateTileCollisions(const float& dt, const std::shared_ptr<Entity>& entity) -> void;
 public:
     //Constructors & Destructors
     TileMap(const float& gridSizeF, u_short width, u_short height);
     ~TileMap() = default;
 
     //Update methods
-    auto update(const float& dt, std::map<std::string, std::shared_ptr<Entity>>& mapOfEntities) -> void;
-    auto updateWorldBoundsCollisions(std::shared_ptr<Entity>& entity) -> void;
-    auto updateCulling(std::shared_ptr<Entity>& entity) -> void;
-    auto updateTileCollisions(const float& dt, std::shared_ptr<Entity>& entity) -> void;
-    auto updateEntitiesCollisions(std::map<std::string, std::shared_ptr<Entity>>& mapOfEntities);
+    auto update(const float& dt, std::vector<std::shared_ptr<Entity>>& mapOfEntities) -> void;
+    auto checkEntitiesCollisions(std::vector<std::shared_ptr<Entity>>& mapOfEntities) -> void;
 
     //Render methods
     auto render(sf::RenderTarget* target) -> void;
@@ -49,9 +48,6 @@ public:
 
     auto saveMapToFile(const std::filesystem::path& path = "../Resources/config/SaveData/save_01.sv") -> void;
     auto loadMapFromFile(const std::filesystem::path& path = "../Resources/Config/SaveData/save_01.sv") -> void;
-
-    auto getCollisionBox() const -> const sf::FloatRect&;
-
 
 };
 
