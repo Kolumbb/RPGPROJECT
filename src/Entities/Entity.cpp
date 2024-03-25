@@ -95,3 +95,5 @@ auto Entity::setCullingFromY(const int &val) -> void {
     this->culling.fromY = val;
 }
 
+
+

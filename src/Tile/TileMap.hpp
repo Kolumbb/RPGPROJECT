@@ -33,7 +33,7 @@ public:
 
     //Update methods
     auto update(const float& dt, std::vector<std::shared_ptr<Entity>>& mapOfEntities) -> void;
-    auto checkEntitiesCollisions(std::vector<std::shared_ptr<Entity>>& mapOfEntities) -> void;
+    auto checkEntitiesCollisions(std::vector<std::shared_ptr<Entity>>& mapOfEntities, const float& dt) -> void;
 
     //Render methods
     auto render(sf::RenderTarget* target) -> void;

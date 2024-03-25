@@ -37,7 +37,7 @@ auto TileMap::update(const float& dt, std::vector<std::shared_ptr<Entity>>& mapO
     for(auto& it : mapOfEntities){
         this->updateTileCollisions(dt, it);
     }
-    this->checkEntitiesCollisions(mapOfEntities);
+    this->checkEntitiesCollisions(mapOfEntities, dt);
 
 }
 
@@ -129,33 +129,17 @@ auto TileMap::updateTileCollisions(const float& dt, const std::shared_ptr<Entity
     }
 }
 
-auto TileMap::checkEntitiesCollisions(std::vector<std::shared_ptr<Entity>>& mapOfEntities) -> void {
-    for (auto i = 1; i < mapOfEntities.size(); i++) {
-        if (abs(mapOfEntities[0]->getPositionF().x - mapOfEntities[i]->getPositionF().x) < 100 &&
-            abs(mapOfEntities[0]->getPositionF().y - mapOfEntities[i]->getPositionF().y) < 100) {
-            std::cout << "I see you\n";
-            auto playerBounds = mapOfEntities[0]->getGlobalBounds();
-            auto monsterBounds = mapOfEntities[1]->getGlobalBounds();
-            //TOP collision
-            if (playerBounds.top < monsterBounds.top + monsterBounds.height)
-
-                mapOfEntities[0]->stopVelocityY();
-//            else if (playerBounds.top + playerBounds.height < monsterBounds.top )
-//                mapOfEntities[0]->stopVelocityY();
-
-            //Bottom collision
-//
-//            // Left collision
-//            if (playerBounds.left < monsterBounds.left + monsterBounds.width)
-//                mapOfEntities[0]->stopVelocityX();
-//
-//            // Right collision
-//            if (playerBounds.left + playerBounds.width > monsterBounds.left) {
-//                mapOfEntities[0]->stopVelocityX();
-            //}
-
+auto TileMap::checkEntitiesCollisions(std::vector<std::shared_ptr<Entity>>& mapOfEntities, const float& dt) -> void {
+    for (int x = mapOfEntities[0]->getCulling().fromX; x < mapOfEntities[0]->getCulling().toX; x++) {
+        for (int y = mapOfEntities[0]->getCulling().fromY; y < mapOfEntities[0]->getCulling().toY; y++) {
+            if(mapOfEntities[0]->getGlobalBounds().intersects(mapOfEntities[0]->getGlobalBounds())) {
+                std::cout <<"Hello" << std::endl;
+            }
+            }
         }
-    }
+    std::cout << mapOfEntities[0]->getCulling().toX << std::endl;
+    std::cout << mapOfEntities[1]->getCulling().toX << std::endl;
+
 }
 
 

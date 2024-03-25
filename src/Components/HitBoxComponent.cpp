@@ -69,3 +69,4 @@ auto HitBoxComponent::getNextPosition(const sf::Vector2f &velocity)
   return this->nextPosition;
 }
 
+

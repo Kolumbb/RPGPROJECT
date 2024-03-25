@@ -25,8 +25,15 @@ auto State::updateMousePos(const sf::View& view) -> void {
 }
 
 //Constructors & Destructors
-State::State(StateData& stateData): stateData(stateData), mousePosU(sf::Vector2u()),
-    mousePosGrid(sf::Vector2u(static_cast<u_short>(mousePosU.x), static_cast<u_short>(mousePosU.y))){}
+State::State(StateData& stateData):
+stateData(stateData),
+mousePosU(sf::Vector2u()),
+    mousePosGrid(
+            sf::Vector2u(
+                    static_cast<u_short>(mousePosU.x),
+                    static_cast<u_short>(mousePosU.y)
+                    )
+    ){}
 
 
 

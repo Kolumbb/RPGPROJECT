@@ -21,9 +21,9 @@ auto Slime::initTexture(const std::filesystem::path& path) -> void {
 }
 
 auto Slime::initSprite(const sf::Vector2f& startPos) -> void {
-  this->sprite->setTexture(*this->texture);
-  this->sprite->setScale(-2, 2);
-    this->sprite->setOrigin(17.f, 0.f);
+    this->sprite->setTexture(*this->texture);
+    this->sprite->setScale(-2, 2);
+    this->sprite->setOrigin(26.f, 0.f);
     this->sprite->setPosition(startPos);
 }
 
@@ -64,6 +64,11 @@ auto Slime::updateMovingPath() -> void {
         this->movementComponent->move(this->direction * 2.f, 0);
     } else {
         this->direction *= -1;
+        if(this->direction == -1)
+            this->sprite->setOrigin(6.f, 0.f);
+        else
+            this->sprite->setOrigin(26.f, 0.f);
+
         this->sprite->setScale( this->direction * -2.f, 2.f);
         this->limiter = 0;
     }

@@ -20,7 +20,7 @@ auto GameState::initKeyBinds(const std::filesystem::path& path) -> void {
 
 auto GameState::initEntities() -> void {
     this->entities.push_back(std::make_shared<Player>(sf::Vector2f(200, 400)));
-    this->entities.push_back(std::make_shared<Slime>(sf::Vector2f(300, 300)));
+    this->entities.push_back(std::make_shared<Slime>(sf::Vector2f(400, 600)));
 }
 
 auto GameState::initPausedMenu() -> void {

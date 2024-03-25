@@ -2,16 +2,20 @@
 
 #include "Entity.hpp"
 #include "../ResourcePath.hpp"
+#include "../Gui/PlayerGui.h"
 
 class Player : public Entity {
 private:
   // Variables
+  std::unique_ptr<PlayerGui> playerGui;
+  float health;
   // Initializers
   auto initTexture(const std::filesystem::path &path) -> void override;
   auto initSprite(const sf::Vector2f& startPos) -> void override;
   auto initHitBoxComp() -> void override;
   auto initMovementComp() -> void override;
   auto initAnimationComp() -> void override;
+  auto initPlayerGui() -> void;
 
   // Private methods
   auto animateAttack(const float &dt) -> void;

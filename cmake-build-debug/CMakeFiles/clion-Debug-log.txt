@@ -1,20 +1,4 @@
 /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/Applications/CLion.app/Contents/bin/ninja/mac/aarch64/ninja -G Ninja -S /Users/kolumb/Desktop/dev/Projects/RPGPROJECT -B /Users/kolumb/Desktop/dev/Projects/RPGPROJECT/cmake-build-debug
--- The C compiler identification is AppleClang 15.0.0.15000100
--- The CXX compiler identification is AppleClang 15.0.0.15000100
--- Detecting C compiler ABI info
--- Detecting C compiler ABI info - done
--- Check for working C compiler: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc - skipped
--- Detecting C compile features
--- Detecting C compile features - done
--- Detecting CXX compiler ABI info
--- Detecting CXX compiler ABI info - done
--- Check for working CXX compiler: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ - skipped
--- Detecting CXX compile features
--- Detecting CXX compile features - done
--- Found OpenGL: /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.2.sdk/System/Library/Frameworks/OpenGL.framework   
--- Found OpenAL: /Users/kolumb/Desktop/dev/Projects/RPGPROJECT/cmake-build-debug/_deps/sfml-src/extlibs/libs-osx/Frameworks/OpenAL.framework  
--- Found VORBIS: /Users/kolumb/Desktop/dev/Projects/RPGPROJECT/cmake-build-debug/_deps/sfml-src/extlibs/libs-osx/Frameworks/vorbisenc.framework;/Users/kolumb/Desktop/dev/Projects/RPGPROJECT/cmake-build-debug/_deps/sfml-src/extlibs/libs-osx/Frameworks/vorbisfile.framework;/Users/kolumb/Desktop/dev/Projects/RPGPROJECT/cmake-build-debug/_deps/sfml-src/extlibs/libs-osx/Frameworks/vorbis.framework;/Users/kolumb/Desktop/dev/Projects/RPGPROJECT/cmake-build-debug/_deps/sfml-src/extlibs/libs-osx/Frameworks/ogg.framework  
--- Found FLAC: /Users/kolumb/Desktop/dev/Projects/RPGPROJECT/cmake-build-debug/_deps/sfml-src/extlibs/libs-osx/Frameworks/FLAC.framework  
--- Configuring done (13.5s)
+-- Configuring done (0.2s)
 -- Generating done (0.0s)
 -- Build files have been written to: /Users/kolumb/Desktop/dev/Projects/RPGPROJECT/cmake-build-debug
