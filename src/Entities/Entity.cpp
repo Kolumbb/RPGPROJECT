@@ -3,7 +3,7 @@
 
 
 //Constructors & Destructors
-Entity::Entity(): playerAttack(false), direction(1){
+Entity::Entity(const float& health): playerAttack(false), direction(1), health(health){
 	this->texture = std::make_shared<sf::Texture>();
 	this->sprite = std::make_shared<sf::Sprite>();
 }
@@ -93,6 +93,10 @@ auto Entity::setCullingFromX(const int &val) -> void {
 
 auto Entity::setCullingFromY(const int &val) -> void {
     this->culling.fromY = val;
+}
+
+auto Entity::getHealth() const -> const float & {
+    return this->health;
 }
 
 

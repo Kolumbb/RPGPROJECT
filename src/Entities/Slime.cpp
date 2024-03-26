@@ -32,7 +32,7 @@ auto Slime::initHitBoxComp() -> void{
 }
 
 //Constructors & Destructors
-Slime::Slime(const sf::Vector2f& startPos) {
+Slime::Slime(const sf::Vector2f& startPos, const float& health): Entity(health) {
   this->initTexture();
   this->initSprite(startPos);
   this->initHitBoxComp();

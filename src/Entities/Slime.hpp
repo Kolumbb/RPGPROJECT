@@ -24,7 +24,7 @@ private:
 protected:
 public:
   // Constructors & Destructors
-  Slime(const sf::Vector2f& startPos);
+  Slime(const sf::Vector2f& startPos, const float& health);
   ~Slime() override = default;
 
 

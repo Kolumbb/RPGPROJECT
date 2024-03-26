@@ -14,7 +14,7 @@ private:
     sf::RectangleShape healthAmount;
     sf::Vector2f size;
 public:
-    PlayerGui(const float &playerHealth, float sizeY);
+    PlayerGui(const float &playerHealth);
     ~PlayerGui() = default;
 
     void update(const float& dt, const float& playerHealth);

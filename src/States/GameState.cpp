@@ -19,8 +19,8 @@ auto GameState::initKeyBinds(const std::filesystem::path& path) -> void {
 }
 
 auto GameState::initEntities() -> void {
-    this->entities.push_back(std::make_shared<Player>(sf::Vector2f(200, 400)));
-    this->entities.push_back(std::make_shared<Slime>(sf::Vector2f(400, 600)));
+    this->entities.push_back(std::make_shared<Player>(sf::Vector2f(200, 400), 100));
+    this->entities.push_back(std::make_shared<Slime>(sf::Vector2f(400, 600), 40));
 }
 
 auto GameState::initPausedMenu() -> void {
@@ -61,6 +61,9 @@ auto GameState::initBufferedRender() -> void {
       );
 }
 
+auto GameState::initPlayerGui() -> void {
+    this->playerGui = std::make_unique<PlayerGui>(this->entities[0]->getHealth());
+}
 
 
 GameState::GameState(StateData& state_data) : State(state_data), paused(false) {
@@ -70,6 +73,7 @@ GameState::GameState(StateData& state_data) : State(state_data), paused(false) {
   this->initTileMap();
   this->initView();
   this->initBufferedRender();
+  this->initPlayerGui();
 }
 
 
@@ -92,6 +96,7 @@ auto GameState::update(const float& dt) -> void {
 //Update Unpaused
 auto GameState::updateUnPaused(const float& dt) -> void {
   this->updateView();
+  this->playerGui->update(dt, this->entities[0]->getHealth());
   this->updateTileMap(dt);
   for(auto it : this->entities)
       it->update(dt);
@@ -155,6 +160,7 @@ auto GameState::renderPaused(sf::RenderTarget* target) -> void {
 
 auto GameState::renderUnPaused(sf::RenderTarget* target) -> void {
   this->renderTexture.setView(this->gameView);
+  this->playerGui->render(target);
   this->map->render(&this->renderTexture);
 
   for(auto& it :this->entities)
@@ -167,5 +173,10 @@ auto GameState::updateButtons(const float &dt) -> void {
   else if (this->pMenu->isButtonPressed("Resume"))
     this->paused = !this->paused;
 }
+
+auto GameState::updatePlayerHealth() -> void{
+    this->entities[0]->getHealth();
+}
+
 
 

@@ -40,18 +40,15 @@ auto Player::initHitBoxComp() -> void{
                 );
 }
 
-auto Player::initPlayerGui() -> void {
-    this->playerGui = std::make_unique<PlayerGui>(this->health, 30.f);
-}
+
 
 //Constructors & Destructors
-Player::Player(const sf::Vector2f& startPos): health(100.f) {
+Player::Player(const sf::Vector2f& startPos, const float& health): Entity(health) {
   this->initTexture();
   this->initSprite(startPos);
   this->initHitBoxComp();
   this->initMovementComp();
   this->initAnimationComp();
-  this->initPlayerGui();
 }
 
 //Update methods
@@ -60,7 +57,6 @@ auto Player::update(const float& dt) -> void {
 	this->updateInputForAnimation(dt);
 	this->hitboxComponent->update();
         this->updateDirection();
-        this->playerGui->update(dt, this->health);
 }
 
 auto Player::updateInputForAnimation(const float& dt) -> void{
@@ -93,7 +89,6 @@ auto Player::updateInputForAnimation(const float& dt) -> void{
 auto Player::render(sf::RenderTarget* target) -> void {
 	target->draw(*this->sprite);
 	this->hitboxComponent->render(target);
-        this->playerGui->render(target);
 }
 
 //Other methods

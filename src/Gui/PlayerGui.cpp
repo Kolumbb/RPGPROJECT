@@ -1,13 +1,14 @@
-#include "PlayerGui.h"
+#include "PlayerGui.hpp"
 
 
-PlayerGui::PlayerGui(const float &playerHealth, float sizeY): size(sf::Vector2f(playerHealth, sizeY)) {
-    this->healthBar.setSize(this->size);
+PlayerGui::PlayerGui(const float &playerHealth): size(sf::Vector2f(playerHealth, 30.f)) {
+
     this->healthBar.setPosition(30.f, 30.f);
+    this->healthBar.setSize(this->size);
     this->healthBar.setOutlineThickness(1.f);
     this->healthBar.setOutlineColor(sf::Color::Black);
-    this->healthAmount.setSize(this->size);
-    this->healthAmount.setFillColor(sf::Color::Red);
+//    this->healthAmount.setSize(this->size);
+//    this->healthAmount.setFillColor(sf::Color::Red);
 
 }
 

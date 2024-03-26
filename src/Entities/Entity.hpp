@@ -14,6 +14,7 @@ protected:
     std::unique_ptr<HitBoxComponent> hitboxComponent;
     int direction;
     bool playerAttack;
+    float health;
     my::Culling culling;
 
 
@@ -28,7 +29,7 @@ protected:
 public:
 
     //Constructors & Destructors
-    Entity();
+    Entity(const float& health);
     virtual ~Entity() = default;
 
     //Update methods
@@ -43,6 +44,7 @@ public:
     virtual auto stopVelocityX() -> void;
     virtual auto stopVelocityY() -> void;
     auto getAttack() const -> const bool&;
+    auto getHealth() const -> const float&;
 
     //Accessors & Modifiers
     auto getPositionF() const -> const sf::Vector2f&;

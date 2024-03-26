@@ -2,12 +2,10 @@
 
 #include "Entity.hpp"
 #include "../ResourcePath.hpp"
-#include "../Gui/PlayerGui.h"
 
 class Player : public Entity {
 private:
   // Variables
-  std::unique_ptr<PlayerGui> playerGui;
   float health;
   // Initializers
   auto initTexture(const std::filesystem::path &path) -> void override;
@@ -15,7 +13,6 @@ private:
   auto initHitBoxComp() -> void override;
   auto initMovementComp() -> void override;
   auto initAnimationComp() -> void override;
-  auto initPlayerGui() -> void;
 
   // Private methods
   auto animateAttack(const float &dt) -> void;
@@ -23,7 +20,7 @@ private:
 protected:
 public:
   // Constructors & Destructors
-  Player(const sf::Vector2f& startPos);
+  Player(const sf::Vector2f& startPos, const float& health);
   ~Player() override = default;
 
   // Uprade methods
@@ -40,8 +37,7 @@ public:
   //Accessors
 
 
-
-  //Modifiers
+  //ModifiersŚ
   auto setAttack() -> void;
 
 };
