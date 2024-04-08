@@ -25,7 +25,7 @@ protected:
 public:
   // Constructors & Destructors
   Slime(const sf::Vector2f& startPos, const float& health);
-  ~Slime() override = default;
+  ~Slime() override;
 
 
   // Uprade methods
@@ -35,7 +35,7 @@ public:
 
 
   // Render methods
-  auto render(sf::RenderTarget* target) -> void override;
+  auto render(std::shared_ptr<sf::RenderTarget> target) -> void override;
 
   // Other methods
   auto move(const float &x, const float &y) -> void;

@@ -133,12 +133,11 @@ auto TileMap::checkEntitiesCollisions(std::vector<std::shared_ptr<Entity>>& mapO
     for (int x = mapOfEntities[0]->getCulling().fromX; x < mapOfEntities[0]->getCulling().toX; x++) {
         for (int y = mapOfEntities[0]->getCulling().fromY; y < mapOfEntities[0]->getCulling().toY; y++) {
             if(mapOfEntities[0]->getGlobalBounds().intersects(mapOfEntities[0]->getGlobalBounds())) {
-                std::cout <<"Hello" << std::endl;
+
             }
             }
         }
-    std::cout << mapOfEntities[0]->getCulling().toX << std::endl;
-    std::cout << mapOfEntities[1]->getCulling().toX << std::endl;
+
 
 }
 
@@ -152,7 +151,7 @@ auto TileMap::checkEntitiesCollisions(std::vector<std::shared_ptr<Entity>>& mapO
 
 
 //Render methods
-auto TileMap::render(sf::RenderTarget* target) -> void {
+auto TileMap::render(std::shared_ptr<sf::RenderTarget> target) -> void {
     for (int x = 0; x < this->gameSize.x; x++)
         for (int y = 0; y < this->gameSize.y; y++)
             for (int z = 0; z < this->layers; z++) {
@@ -164,7 +163,7 @@ auto TileMap::render(sf::RenderTarget* target) -> void {
             }
 }
 
-auto TileMap::renderCollisionBox(sf::RenderTarget* target) const -> void{
+auto TileMap::renderCollisionBox(std::shared_ptr<sf::RenderTarget> target) const -> void{
     for (int x = 0; x < this->gameSize.x; x++)
         for (int y = 0; y < this->gameSize.y; y++)
             for (int z = 0; z < this->layers; z++) {

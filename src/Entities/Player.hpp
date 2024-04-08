@@ -6,7 +6,7 @@
 class Player : public Entity {
 private:
   // Variables
-  float health;
+
   // Initializers
   auto initTexture(const std::filesystem::path &path) -> void override;
   auto initSprite(const sf::Vector2f& startPos) -> void override;
@@ -21,14 +21,14 @@ protected:
 public:
   // Constructors & Destructors
   Player(const sf::Vector2f& startPos, const float& health);
-  ~Player() override = default;
+  ~Player() override;
 
   // Uprade methods
   auto update(const float &dt) -> void override;
   auto updateInputForAnimation(const float &dt) -> void;
 
   // Render methods
-  auto render(sf::RenderTarget* target) -> void override;
+  auto render(std::shared_ptr<sf::RenderTarget> target) -> void override;
 
   // Other methods
   auto move(const float &x, const float &y) -> void override;

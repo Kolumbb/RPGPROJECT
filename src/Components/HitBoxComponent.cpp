@@ -35,7 +35,7 @@ auto HitBoxComponent::update() -> void{
 }
 
 //Render methods
-auto HitBoxComponent::render(sf::RenderTarget* target) -> void {
+auto HitBoxComponent::render(std::shared_ptr<sf::RenderTarget> target) -> void {
 	target->draw(this->hitBox);
 }
 

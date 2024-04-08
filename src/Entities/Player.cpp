@@ -51,12 +51,17 @@ Player::Player(const sf::Vector2f& startPos, const float& health): Entity(health
   this->initAnimationComp();
 }
 
+Player::~Player() {
+    std::cout <<"Player deleted" << std::endl;
+}
+
 //Update methods
 auto Player::update(const float& dt) -> void {
 	this->movementComponent->update(dt);
 	this->updateInputForAnimation(dt);
 	this->hitboxComponent->update();
         this->updateDirection();
+        std::cout <<this->health << std::endl;
 }
 
 auto Player::updateInputForAnimation(const float& dt) -> void{
@@ -86,7 +91,7 @@ auto Player::updateInputForAnimation(const float& dt) -> void{
 }
 		
 
-auto Player::render(sf::RenderTarget* target) -> void {
+auto Player::render(std::shared_ptr<sf::RenderTarget> target) -> void {
 	target->draw(*this->sprite);
 	this->hitboxComponent->render(target);
 }

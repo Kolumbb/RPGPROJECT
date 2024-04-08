@@ -24,11 +24,11 @@ auto Tile::update() -> void {
 
 }
 //Render methods
-auto Tile::render(sf::RenderTarget* target) -> void {
+auto Tile::render(std::shared_ptr<sf::RenderTarget> target) -> void {
     target->draw(this->shape);
 }
 
-auto Tile::renderCollisionBox(sf::RenderTarget* target) -> void {
+auto Tile::renderCollisionBox(std::shared_ptr<sf::RenderTarget> target) -> void {
     if(this->getCollision()) target->draw(this->collisionBox);
 }
 

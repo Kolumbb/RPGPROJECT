@@ -99,5 +99,9 @@ auto Entity::getHealth() const -> const float & {
     return this->health;
 }
 
+Entity::~Entity() {
+    std::cout << "Entity deleted" << std::endl;
+}
+
 
 

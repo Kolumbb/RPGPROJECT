@@ -14,7 +14,7 @@ class GameState :
 private:
   // Variables & Resources
   sf::View gameView;
-  sf::RenderTexture renderTexture;
+  std::shared_ptr<sf::RenderTexture> renderTexture;
   sf::Sprite renderSprite;
   bool paused;
   std::unique_ptr<PauseMenu> pMenu;
@@ -41,12 +41,12 @@ private:
   auto updateKeyBindsInput(const float &dt) -> void;
   auto updateView() -> void;
   auto updateTileMap(const float& dt) -> void;
-  auto updatePlayerHealth() -> void;
+  auto updatePlayerHealth(const float& dt, std::shared_ptr<Player> player) -> void;
 
     // Render methods
-  auto render(sf::RenderTarget* target) -> void;
-  auto renderPaused(sf::RenderTarget* target) -> void;
-  auto renderUnPaused(sf::RenderTarget* target) -> void;
+  auto render(std::shared_ptr<sf::RenderTarget> target) -> void;
+  auto renderPaused(std::shared_ptr<sf::RenderTarget> target) -> void;
+  auto renderUnPaused(std::shared_ptr<sf::RenderTarget> target) -> void;
 
 protected:
 public:

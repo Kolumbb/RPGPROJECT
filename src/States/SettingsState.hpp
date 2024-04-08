@@ -31,10 +31,10 @@ private:
     auto updateKeyBindsInput(const float& dt) -> void;
 
     //Render methods
-    auto render(sf::RenderTarget* target) -> void;
-    auto renderPaused(sf::RenderTarget* target) -> void;
-    auto renderUnPaused(sf::RenderTarget* target) -> void;
-    auto renderButtons(sf::RenderTarget* target) -> void;
+    auto render(std::shared_ptr<sf::RenderTarget> target) -> void;
+    auto renderPaused(std::shared_ptr<sf::RenderTarget> target) -> void;
+    auto renderUnPaused(std::shared_ptr<sf::RenderTarget> target) -> void;
+    auto renderButtons(std::shared_ptr<sf::RenderTarget> target) -> void;
 
 
 public:

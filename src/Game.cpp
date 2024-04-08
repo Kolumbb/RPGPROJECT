@@ -3,6 +3,7 @@
 //Initializers
 auto Game::initStates() -> void {
     this->stateData.states.push(std::make_shared<MainMenuState>(this->stateData));
+
 }
 
 //Update methods
@@ -25,13 +26,12 @@ auto Game::updateDt() -> void{
 }
 
 //Render methods
-auto Game::render(sf::RenderTarget* target) -> void{
-    target = this->stateData.window.get();
+auto Game::render(std::shared_ptr<sf::RenderTarget> target) -> void{
+    target = this->stateData.window;
     if (target) {
         this->stateData.window->clear();
         if (!this->stateData.states.empty())
             this->stateData.states.top()->render(target);
-
         this->stateData.window->display();
 	}
 }
@@ -53,6 +53,6 @@ auto Game::run() -> void{
     while (this->stateData.window->isOpen() && this->getQuit()) {
         this->updateDt();
         this->update(this->dt);
-        this->render(this->stateData.window.get());
+        this->render(this->stateData.window);
     }
 }

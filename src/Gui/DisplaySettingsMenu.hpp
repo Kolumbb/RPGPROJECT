@@ -30,9 +30,9 @@ public:
 	auto update(const float& dt, const sf::Vector2f& mousePosition) -> void;
 
 	//Render methods
-	auto render(sf::RenderTarget* target) -> void;
-	auto renderBackground(sf::RenderTarget* target) -> void;
-	auto renderGui(sf::RenderTarget* target) -> void;
+	auto render(std::shared_ptr<sf::RenderTarget> target) -> void;
+	auto renderBackground(std::shared_ptr<sf::RenderTarget> target) -> void;
+	auto renderGui(std::shared_ptr<sf::RenderTarget> target) -> void;
     
     //Modifiers
     auto setResolution() -> void;

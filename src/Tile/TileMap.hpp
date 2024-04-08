@@ -36,8 +36,8 @@ public:
     auto checkEntitiesCollisions(std::vector<std::shared_ptr<Entity>>& mapOfEntities, const float& dt) -> void;
 
     //Render methods
-    auto render(sf::RenderTarget* target) -> void;
-    auto renderCollisionBox(sf::RenderTarget* target) const -> void;
+    auto render(std::shared_ptr<sf::RenderTarget> target) -> void;
+    auto renderCollisionBox(std::shared_ptr<sf::RenderTarget> target) const -> void;
 
     //Other public methods
     auto addTile(

@@ -40,6 +40,10 @@ Slime::Slime(const sf::Vector2f& startPos, const float& health): Entity(health) 
   this->initAnimationComp();
 }
 
+Slime::~Slime() {
+    std::cout <<"Slime deleted" << std::endl;
+}
+
 //Update methods
 auto Slime::update(const float& dt) -> void {
     this->movementComponent->update(dt);
@@ -75,7 +79,7 @@ auto Slime::updateMovingPath() -> void {
 }
 
 
-auto Slime::render(sf::RenderTarget* target) -> void {
+auto Slime::render(std::shared_ptr<sf::RenderTarget> target) -> void {
   target->draw(*this->sprite);
   this->hitboxComponent->render(target);
 }
@@ -84,5 +88,7 @@ auto Slime::render(sf::RenderTarget* target) -> void {
 auto Slime::move(const float& x, const float& y) -> void {
   this->movementComponent->move(x, y);
 }
+
+
 
 

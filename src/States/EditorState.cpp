@@ -216,26 +216,26 @@ auto EditorState::updateEditorInput(const float &dt) -> void {
 }
 
 //Render methods
-auto EditorState::render(sf::RenderTarget* target) -> void {
+auto EditorState::render(std::shared_ptr<sf::RenderTarget> target) -> void {
     this->renderUnPaused(target);
     if (this->paused)
         this->renderPaused(target);
 
 }
 
-auto EditorState::renderPaused(sf::RenderTarget* target) -> void {
+auto EditorState::renderPaused(std::shared_ptr<sf::RenderTarget> target) -> void {
   target->setView(this->stateData.window->getDefaultView());
   this->pMenu->render(target);
 }
 
-auto EditorState::renderUnPaused(sf::RenderTarget* target) -> void {
+auto EditorState::renderUnPaused(std::shared_ptr<sf::RenderTarget> target) -> void {
   target->setView(this->gameView);
   this->tileMap->render(target);
   this->tileMap->renderCollisionBox(target);
   this->renderGui(target);
 }
 
-auto EditorState::renderGui(sf::RenderTarget* target) -> void {
+auto EditorState::renderGui(std::shared_ptr<sf::RenderTarget> target) -> void {
 
   if(!this->textureSelector->getActive()) target->draw(this->selector);
   target->setView(this->stateData.window->getDefaultView());

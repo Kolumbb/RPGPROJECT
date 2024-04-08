@@ -88,18 +88,18 @@ auto PauseMenu::update(const float& dt, const sf::Vector2f& mousePosition) -> vo
 }
 
 //Render methods
-auto PauseMenu::render(sf::RenderTarget* target) -> void {
+auto PauseMenu::render(std::shared_ptr<sf::RenderTarget> target) -> void {
 	this->renderBackground(target);
 	this->renderGui(target);
 }
 
-auto PauseMenu::renderBackground(sf::RenderTarget* target)  -> void {
+auto PauseMenu::renderBackground(std::shared_ptr<sf::RenderTarget> target)  -> void {
 	target->draw(this->transparentBackground);
 	target->draw(this->background);
 	target->draw(this->text);
 }
 
-auto PauseMenu::renderGui(sf::RenderTarget* target) -> void {
+auto PauseMenu::renderGui(std::shared_ptr<sf::RenderTarget> target) -> void {
 	for(auto & it : this->buttons) it.second->render(target);
 }
 

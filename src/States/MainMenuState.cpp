@@ -106,13 +106,13 @@ auto MainMenuState::updateButtons(const float& dt) -> void {
 
 //Render methods
 
-auto MainMenuState::render(sf::RenderTarget* target) -> void {
+auto MainMenuState::render(std::shared_ptr<sf::RenderTarget> target) -> void {
 	target->draw(this->shape);
 	this->renderButtons(target);
 }
 
 
-auto MainMenuState::renderButtons(sf::RenderTarget* target) -> void {
+auto MainMenuState::renderButtons(std::shared_ptr<sf::RenderTarget> target) -> void {
 	for (auto& it : this->buttons) it.second->render(target);
 }
 

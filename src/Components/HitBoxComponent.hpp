@@ -25,7 +25,7 @@ public:
   auto update() -> void;
 
   // Render methods
-  auto render(sf::RenderTarget *target) -> void;
+  auto render(std::shared_ptr<sf::RenderTarget> target) -> void;
 
   // Other public methods
   auto intersects(const sf::FloatRect &fRect) -> bool;

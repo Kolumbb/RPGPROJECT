@@ -62,12 +62,12 @@ namespace gui {
                sf::Color outlineActiveColor = sf::Color::Transparent
         );
 
-        ~Button() = default;
+        ~Button();
 
         //Methods
         auto update(const float &dt, const sf::Vector2f &mousePosition) -> void;
 
-        auto render(sf::RenderTarget* target) const -> void const;
+        auto render(std::shared_ptr<sf::RenderTarget> target) const -> void const;
 
     };
 
@@ -101,7 +101,7 @@ namespace gui {
         auto update(const float &dt, const sf::Vector2f &mousePosition) -> void;
 
         //Render methods
-        auto render(sf::RenderTarget* target) const -> void const;
+        auto render(std::shared_ptr<sf::RenderTarget> target) const -> void const;
 
         //Getters
         auto getResolution() const -> const sf::VideoMode;
@@ -154,9 +154,9 @@ namespace gui {
         auto update(const sf::Vector2u& selectorPosition) -> void;
 
         //Render methods
-        auto render(sf::RenderTarget* target) -> void;
+        auto render(std::shared_ptr<sf::RenderTarget> target) -> void;
 
-        auto renderActive(sf::RenderTarget* target, const sf::View& defaultView, const sf::View& view) -> void;
+        auto renderActive(std::shared_ptr<sf::RenderTarget> target, const sf::View& defaultView, const sf::View& view) -> void;
 
         //Other Public methods
         auto getActive() const -> const bool;

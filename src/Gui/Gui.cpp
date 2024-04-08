@@ -58,6 +58,9 @@ gui::Button::Button(
 	this->initText(text, characterSize, font);
 }
 
+gui::Button::~Button(){
+    std::cout << "Button deleted" << std::endl;
+}
 //Update methods
 auto gui::Button::update(const float& dt, const sf::Vector2f& mousePosWindow) -> void {
 	this->updateMousePosition(dt, mousePosWindow);
@@ -103,7 +106,7 @@ auto gui::Button::updateMousePosition(const float& dt, const sf::Vector2f& mouse
 }
 
 //Render methods
-auto gui::Button::render(sf::RenderTarget* target) const -> void const{
+auto gui::Button::render(std::shared_ptr<sf::RenderTarget> target) const -> void const{
 	target->draw(this->shape);
 	target->draw(this->text);
 }
@@ -207,7 +210,7 @@ auto gui::DropDownList::update(const float& dt, const sf::Vector2f& mousePositio
 
 }
 //Render methods
-auto gui::DropDownList::render(sf::RenderTarget* target) const -> void const{
+auto gui::DropDownList::render(std::shared_ptr<sf::RenderTarget> target) const -> void const{
 	this->activeElement->render(target);
     if (this->shownList) for (auto& it : this->dropDownList)
         it->render(target);
@@ -317,7 +320,7 @@ auto gui::TextureSelector::update(const sf::Vector2u& mousePosF) -> void {
 }
 
 //Render methods
-auto gui::TextureSelector::render(sf::RenderTarget *target)-> void {
+auto gui::TextureSelector::render(std::shared_ptr<sf::RenderTarget> target)-> void {
   target->draw(this->bounds);
   target->draw(this->sheet);
   target->draw(this->selector);

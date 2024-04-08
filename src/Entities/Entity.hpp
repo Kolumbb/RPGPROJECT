@@ -30,13 +30,13 @@ public:
 
     //Constructors & Destructors
     Entity(const float& health);
-    virtual ~Entity() = default;
+    virtual ~Entity();
 
     //Update methods
     virtual auto update(const float& dt) -> void = 0;
     auto updateDirection() -> void;
     //Render methods
-    virtual auto render(sf::RenderTarget* target) -> void = 0;
+    virtual auto render(std::shared_ptr<sf::RenderTarget> target) -> void = 0;
 
     //Other methods
     virtual auto move(const float& x, const float& y) -> void = 0;

@@ -22,7 +22,7 @@ private:
     auto updateEvents() -> void;
     auto updateDt() -> void;
     //Render method
-    auto render(sf::RenderTarget* target = nullptr) -> void;
+    auto render(std::shared_ptr<sf::RenderTarget> target = nullptr) -> void;
 
     //Other private methods
     auto getQuit() -> const bool;

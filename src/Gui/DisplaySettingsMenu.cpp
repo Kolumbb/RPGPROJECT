@@ -156,20 +156,20 @@ auto DisplaySettingsMenu::updateGui(const float& dt, const sf::Vector2f& mousePo
 
 }
 //Render methods
-auto DisplaySettingsMenu::render(sf::RenderTarget* target) -> void {
+auto DisplaySettingsMenu::render(std::shared_ptr<sf::RenderTarget> target) -> void {
 	this->renderBackground(target);
 	this->renderGui(target);
 
     
 }
 
-auto DisplaySettingsMenu::renderBackground(sf::RenderTarget* target)  -> void {
+auto DisplaySettingsMenu::renderBackground(std::shared_ptr<sf::RenderTarget> target)  -> void {
 	target->draw(this->transparentBackground);
 	target->draw(this->background);
 	target->draw(this->text);
 }
 
-auto DisplaySettingsMenu::renderGui(sf::RenderTarget* target) -> void {
+auto DisplaySettingsMenu::renderGui(std::shared_ptr<sf::RenderTarget> target) -> void {
     for (auto& it : this->buttons) it.second->render(target);
     for(auto& it : this->dropDownLists) it.second->render(target);
 

@@ -44,6 +44,6 @@ public:
 
 
     //Public Render methods
-    virtual auto render(sf::RenderTarget* target) -> void = 0;
+    virtual auto render(std::shared_ptr<sf::RenderTarget> target) -> void = 0;
 
 };

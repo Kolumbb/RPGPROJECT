@@ -19,7 +19,7 @@ auto GameState::initKeyBinds(const std::filesystem::path& path) -> void {
 }
 
 auto GameState::initEntities() -> void {
-    this->entities.push_back(std::make_shared<Player>(sf::Vector2f(200, 400), 100));
+    this->entities.push_back(std::make_shared<Player>(sf::Vector2f(200, 400), 600));
     this->entities.push_back(std::make_shared<Slime>(sf::Vector2f(400, 600), 40));
 }
 
@@ -46,11 +46,12 @@ auto GameState::initView() -> void {
 }
 
 auto GameState::initBufferedRender() -> void {
-  this->renderTexture.create(
+    this->renderTexture = std::make_shared<sf::RenderTexture>();
+  this->renderTexture->create(
         this->stateData.gfxSettings->resolution.width,
         this->stateData.gfxSettings->resolution.height
         );
-  this->renderSprite.setTexture(this->renderTexture.getTexture());
+  this->renderSprite.setTexture(this->renderTexture->getTexture());
   this->renderSprite.setTextureRect(
       sf::IntRect (
           0,
@@ -62,7 +63,7 @@ auto GameState::initBufferedRender() -> void {
 }
 
 auto GameState::initPlayerGui() -> void {
-    this->playerGui = std::make_unique<PlayerGui>(this->entities[0]->getHealth());
+    this->playerGui = std::make_unique<PlayerGui>(this->entities[0]);
 }
 
 
@@ -96,7 +97,7 @@ auto GameState::update(const float& dt) -> void {
 //Update Unpaused
 auto GameState::updateUnPaused(const float& dt) -> void {
   this->updateView();
-  this->playerGui->update(dt, this->entities[0]->getHealth());
+  this->playerGui->update(dt, this->entities[0]);
   this->updateTileMap(dt);
   for(auto it : this->entities)
       it->update(dt);
@@ -141,30 +142,36 @@ auto GameState::updateTileMap(const float& dt) -> void {
 
 }
 
-//Render methods
-auto GameState::render(sf::RenderTarget* target) -> void {
-this->renderTexture.clear();
-  this->renderUnPaused(&this->renderTexture);
-  if (this->paused)
-    this->renderPaused(&this->renderTexture);
+auto GameState::updatePlayerHealth(const float& dt, std::shared_ptr<Player> player) -> void{
+    this->playerGui->update(dt, player);
+}
 
-  this->renderTexture.display();
-  this->renderSprite.setTexture(this->renderTexture.getTexture());
+//Render methods
+auto GameState::render(std::shared_ptr<sf::RenderTarget> target) -> void {
+this->renderTexture->clear();
+  this->renderUnPaused(this->renderTexture);
+  if (this->paused)
+    this->renderPaused(this->renderTexture);
+
+  this->renderTexture->display();
+  this->renderSprite.setTexture(this->renderTexture->getTexture());
   target->draw(this->renderSprite);
 }
 
-auto GameState::renderPaused(sf::RenderTarget* target) -> void {
-  this->renderTexture.setView(this->renderTexture.getDefaultView());
+auto GameState::renderPaused(std::shared_ptr<sf::RenderTarget> target) -> void {
+  this->renderTexture->setView(this->renderTexture->getDefaultView());
   this->pMenu->render(target);
 }
 
-auto GameState::renderUnPaused(sf::RenderTarget* target) -> void {
-  this->renderTexture.setView(this->gameView);
-  this->playerGui->render(target);
-  this->map->render(&this->renderTexture);
+auto GameState::renderUnPaused(std::shared_ptr<sf::RenderTarget> target) -> void {
+  this->renderTexture->setView(this->gameView);
+  this->map->render(this->renderTexture);
+  this->renderTexture->setView(this->renderTexture->getDefaultView());
+  this->playerGui->render(this->renderTexture);
+  this->renderTexture->setView(this->gameView);
 
-  for(auto& it :this->entities)
-      it->render(&this->renderTexture);
+    for(auto& it :this->entities)
+      it->render(this->renderTexture);
 }
 
 auto GameState::updateButtons(const float &dt) -> void {
@@ -174,9 +181,7 @@ auto GameState::updateButtons(const float &dt) -> void {
     this->paused = !this->paused;
 }
 
-auto GameState::updatePlayerHealth() -> void{
-    this->entities[0]->getHealth();
-}
+
 
 
 

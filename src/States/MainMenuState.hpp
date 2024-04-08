@@ -28,8 +28,8 @@ private:
     auto updateButtons(const float& dt) -> void;
 
     //Render methods
-    auto render(sf::RenderTarget* target) -> void;
-    auto renderButtons(sf::RenderTarget* target) -> void;
+    auto render(std::shared_ptr<sf::RenderTarget> target) -> void;
+    auto renderButtons(std::shared_ptr<sf::RenderTarget> target) -> void;
 
 protected:
 

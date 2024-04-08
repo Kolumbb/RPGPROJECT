@@ -131,23 +131,23 @@ auto SettingsState::updateButtons(const float& dt) -> void {
 
 
 //Render methods
-auto SettingsState::render(sf::RenderTarget* target) -> void {
+auto SettingsState::render(std::shared_ptr<sf::RenderTarget> target) -> void {
 	this->renderUnPaused(target);
 
 	if (this->paused)
 		this->renderPaused(target);
 }
 
-auto SettingsState::renderPaused(sf::RenderTarget* target) -> void {
+auto SettingsState::renderPaused(std::shared_ptr<sf::RenderTarget> target) -> void {
 	this->dMenu->render(target);
 }
 
-auto SettingsState::renderUnPaused(sf::RenderTarget* target) -> void {
+auto SettingsState::renderUnPaused(std::shared_ptr<sf::RenderTarget> target) -> void {
 	target->draw(*this->background);
 	this->renderButtons(target);
 }
 
-auto SettingsState::renderButtons(sf::RenderTarget* target) -> void {
+auto SettingsState::renderButtons(std::shared_ptr<sf::RenderTarget> target) -> void {
     for (auto& it : this->buttons) it.second->render(target);
 }
 
