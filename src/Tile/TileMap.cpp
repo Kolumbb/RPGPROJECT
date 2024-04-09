@@ -13,18 +13,18 @@ auto TileMap::initTexturePacks(const std::filesystem::path& path) -> void {
 TileMap::TileMap(const float& gridSizeF, u_short width, u_short height)
     : gridSizeF(gridSizeF), gridSizeU(static_cast<unsigned>(gridSizeF)),
       layers(1), gameSize(sf::Vector2u(width, height)),
-    gameSizeInPixels(sf::Vector2u (width * this->gridSizeU, height * this->gridSizeU)){
-
-    this->tileMap.resize(this->gameSize.x, std::vector<std::vector<std::shared_ptr<Tile>>>());
-    for(auto x = 0 ; x < this->gameSize.x ; x++){
-        for(auto y = 0 ; y < this->gameSize.y ; y++) {
-            this->tileMap[x].resize(this->gameSize.y, std::vector<std::shared_ptr<Tile>>());
-            for (auto z = 0; z < this->layers; z++) {
-                this->tileMap[x][y].resize(this->layers, nullptr);
+      gameSizeInPixels(sf::Vector2u (width * this->gridSizeU, height * this->gridSizeU))
+      {
+        this->tileMap.resize(this->gameSize.x, std::vector<std::vector<std::shared_ptr<Tile>>>());
+        for(auto x = 0 ; x < this->gameSize.x ; x++){
+            for(auto y = 0 ; y < this->gameSize.y ; y++) {
+                this->tileMap[x].resize(this->gameSize.y, std::vector<std::shared_ptr<Tile>>());
+                for (auto z = 0; z < this->layers; z++) {
+                    this->tileMap[x][y].resize(this->layers, nullptr);
+                }
             }
         }
-    }
-    this->initTexturePacks();
+        this->initTexturePacks();
 }
 
 //Update methods
@@ -98,7 +98,12 @@ auto TileMap::updateTileCollisions(const float& dt, const std::shared_ptr<Entity
     for (int x = entity->getCulling().fromX; x < entity->getCulling().toX; x++) {
         for (int y = entity->getCulling().fromY; y < entity->getCulling().toY; y++) {
             if (this->tileMap[x][y][entity->getCulling().layer] != nullptr) {
-                auto playerBounds = entity->getGlobalBounds();
+                auto playerBounds = sf::FloatRect(
+                        entity->getGlobalBounds().left,
+                        entity->getGlobalBounds().top,
+                        entity->getGlobalBounds().width,
+                        entity->getGlobalBounds().height
+                );
                 sf::FloatRect wallBounds = this->tileMap[x][y][entity->getCulling().layer]->getGlobalBounds();
                 sf::FloatRect nextPositionBounds = entity->getNextPosition(dt);
 
@@ -106,15 +111,8 @@ auto TileMap::updateTileCollisions(const float& dt, const std::shared_ptr<Entity
                 && this->tileMap[x][y][entity->getCulling().layer]->intersects(nextPositionBounds)
                     ) {
                     //Bottom collision
-                    std::cout << wallBounds.top << std::endl;
-                    std::cout << playerBounds.top + playerBounds.height << std::endl;
                     if (playerBounds.top < wallBounds.top && playerBounds.top + playerBounds.height < wallBounds.top + wallBounds.height)
                         entity->stopVelocityY();
-
-                    //Top collision
-                    if (playerBounds.top > wallBounds.top && playerBounds.top + playerBounds.height > wallBounds.top + wallBounds.height)
-                        entity->stopVelocityY();
-
 
                     // Right collision
                     if (playerBounds.left < wallBounds.left && playerBounds.left + playerBounds.width < wallBounds.left + wallBounds.width)
@@ -126,7 +124,9 @@ auto TileMap::updateTileCollisions(const float& dt, const std::shared_ptr<Entity
                         playerBounds.top < wallBounds.top + wallBounds.height && playerBounds.top + playerBounds.height > wallBounds.top) {
                         entity->stopVelocityX();
 
-
+                    //Top collision
+                     if (playerBounds.top > wallBounds.top && playerBounds.top + playerBounds.height > wallBounds.top + wallBounds.height)
+                        entity->stopVelocityY();
 
                     }
                 }

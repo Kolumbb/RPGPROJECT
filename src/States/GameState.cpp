@@ -19,7 +19,7 @@ auto GameState::initKeyBinds(const std::filesystem::path& path) -> void {
 }
 
 auto GameState::initEntities() -> void {
-    this->entities.push_back(std::make_shared<Player>(sf::Vector2f(200, 400), 300));
+    this->entities.push_back(std::make_shared<Player>(sf::Vector2f(600, 600), 300));
     this->entities.push_back(std::make_shared<Slime>(sf::Vector2f(400, 600), 40));
 }
 

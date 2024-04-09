@@ -16,7 +16,7 @@ private:
     sf::Vector2u gameSizeInPixels;
     std::vector<std::vector<std::vector<std::shared_ptr<Tile>>>> tileMap;
     std::shared_ptr<sf::Texture> tileSheet;
-
+    std::shared_ptr<std::vector<std::shared_ptr<Entity>>> entities;
 
     //Initializers
     auto initTexturePacks(const std::filesystem::path& path = "../Resources/editorState/Tileset1.png") -> void;
