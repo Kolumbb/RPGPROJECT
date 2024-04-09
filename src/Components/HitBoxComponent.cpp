@@ -2,7 +2,7 @@
 
 //Initializers
 auto HitBoxComponent::initHitBox(const float& width, const float& height) -> void {
-  this->hitBox.setPosition(sprite.getPosition().x + offsetX, sprite.getPosition().y);
+  this->hitBox.setPosition(sprite.getPosition().x + this->offsetX, sprite.getPosition().y);
   this->hitBox.setSize(sf::Vector2f(width, height));
 
   this->hitBox.setFillColor(sf::Color::Transparent);
@@ -61,9 +61,7 @@ auto HitBoxComponent::setPosition(const float &posX, const float &posY)-> void {
 auto HitBoxComponent::getGlobalBounds() const-> const sf::FloatRect& {
   return this->hitBox.getGlobalBounds();
 }
-auto HitBoxComponent::getNextPosition(const sf::Vector2f &velocity)
-    -> const sf::FloatRect& {
-
+auto HitBoxComponent::getNextPosition(const sf::Vector2f &velocity) -> const sf::FloatRect& {
   this->nextPosition.left = this->hitBox.getPosition().x + velocity.x;
   this->nextPosition.top = this->hitBox.getPosition().y + velocity.y;
   return this->nextPosition;

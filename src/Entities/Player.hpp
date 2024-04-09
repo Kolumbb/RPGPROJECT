@@ -37,7 +37,8 @@ public:
   //Accessors
 
 
-  //ModifiersŚ
+  //Modifiers
   auto setAttack() -> void;
+  auto getDamage() -> void;
 
 };

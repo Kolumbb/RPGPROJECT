@@ -6,7 +6,9 @@ PlayerGui::PlayerGui(std::shared_ptr<Entity> player): player(player), size(sf::V
     this->healthBar.setPosition(50.f, 50.f);
     this->healthBar.setSize(this->size);
     this->healthBar.setFillColor(sf::Color::Black);
-    //this->healthAmount.set
+    this->healthAmount.setPosition(50.f, 50.f);
+    this->healthBar.setSize(sf::Vector2f (this->player->getHealth(), this->size.y));
+    this->healthBar.setFillColor(sf::Color::Red);
     this->healthBar.setOutlineThickness(1.f);
     this->healthBar.setOutlineColor(sf::Color::Black);
 

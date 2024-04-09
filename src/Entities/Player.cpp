@@ -61,7 +61,6 @@ auto Player::update(const float& dt) -> void {
 	this->updateInputForAnimation(dt);
 	this->hitboxComponent->update();
         this->updateDirection();
-        std::cout <<this->health << std::endl;
 }
 
 auto Player::updateInputForAnimation(const float& dt) -> void{
@@ -92,8 +91,10 @@ auto Player::updateInputForAnimation(const float& dt) -> void{
 		
 
 auto Player::render(std::shared_ptr<sf::RenderTarget> target) -> void {
-	target->draw(*this->sprite);
-	this->hitboxComponent->render(target);
+    target->draw(*this->sprite);
+    this->hitboxComponent->render(target);
+
+
 }
 
 //Other methods
@@ -120,6 +121,10 @@ auto Player::setAttack() -> void{
   if (this->playerAttack)
     this->playerAttack = false;
   else this->playerAttack = true;
+}
+
+auto Player::getDamage() -> void {
+    this->health -= 10;
 }
 
 

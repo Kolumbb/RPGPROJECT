@@ -44,7 +44,7 @@ auto Entity::getGridPosition(const u_short& gridSizeU) const -> const sf::Vector
 auto Entity::getGlobalBounds() const -> const sf::FloatRect& {
   if(this->hitboxComponent)
     return this->hitboxComponent->getGlobalBounds();
-
+  else
   return this->sprite->getGlobalBounds();
 }
 

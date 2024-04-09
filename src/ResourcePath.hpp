@@ -82,6 +82,7 @@ struct Culling {
     Culling(int formX = 0, int toX = 0, int fromY = 0, int toY = 0,
           int layer = 0);
     ~Culling() = default;
+
 };
 auto splitTextByLetter(const std::string &text, char letter)
     -> std::pair<std::string, std::string>;

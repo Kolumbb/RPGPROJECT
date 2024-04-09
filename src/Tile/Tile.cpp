@@ -54,7 +54,7 @@ auto Tile::getGlobalBounds() const -> const sf::FloatRect & {
     return sf::FloatRect (
             this->shape.getGlobalBounds().left,
             this->shape.getGlobalBounds().top,
-            this->shape.getGlobalBounds().width ,
+            this->shape.getGlobalBounds().width,
             this->shape.getGlobalBounds().height
             );
 }

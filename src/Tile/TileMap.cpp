@@ -84,7 +84,7 @@ auto TileMap::updateCulling(std::shared_ptr<Entity>& entity) -> void {
     else if (entity->getCulling().fromY > this->gameSizeInPixels.y)
         entity->setCullingFromY(this->gameSizeInPixels.y);
 
-    entity->setCullingToY(entity->getGridPosition(this->gridSizeU).y + 2);
+    entity->setCullingToY(entity->getGridPosition(this->gridSizeU).y + 3);
     if (entity->getCulling().toY < 0) {
         entity->setCullingToY(0.f);
     }
@@ -102,26 +102,32 @@ auto TileMap::updateTileCollisions(const float& dt, const std::shared_ptr<Entity
                 sf::FloatRect wallBounds = this->tileMap[x][y][entity->getCulling().layer]->getGlobalBounds();
                 sf::FloatRect nextPositionBounds = entity->getNextPosition(dt);
 
-                if (this->tileMap[x][y][entity->getCulling().layer]->getCollision() &&
-                    this->tileMap[x][y][entity->getCulling().layer]->intersects(
-                            nextPositionBounds)) {
+                if (this->tileMap[x][y][entity->getCulling().layer]->getCollision()
+                && this->tileMap[x][y][entity->getCulling().layer]->intersects(nextPositionBounds)
+                    ) {
                     //Bottom collision
+                    std::cout << wallBounds.top << std::endl;
+                    std::cout << playerBounds.top + playerBounds.height << std::endl;
                     if (playerBounds.top < wallBounds.top && playerBounds.top + playerBounds.height < wallBounds.top + wallBounds.height)
                         entity->stopVelocityY();
 
-                        //Top collision
+                    //Top collision
                     if (playerBounds.top > wallBounds.top && playerBounds.top + playerBounds.height > wallBounds.top + wallBounds.height)
                         entity->stopVelocityY();
 
-                        // Right collision
+
+                    // Right collision
                     if (playerBounds.left < wallBounds.left && playerBounds.left + playerBounds.width < wallBounds.left + wallBounds.width)
                         entity->stopVelocityX();
 
-                        // Left collision
+                    // Left collision
                     if (playerBounds.left > wallBounds.left &&
-                             playerBounds.left + playerBounds.width > wallBounds.left + wallBounds.width &&
-                             playerBounds.top < wallBounds.top + wallBounds.height && playerBounds.top + playerBounds.height > wallBounds.top) {
+                        playerBounds.left + playerBounds.width > wallBounds.left + wallBounds.width &&
+                        playerBounds.top < wallBounds.top + wallBounds.height && playerBounds.top + playerBounds.height > wallBounds.top) {
                         entity->stopVelocityX();
+
+
+
                     }
                 }
             }
@@ -130,13 +136,9 @@ auto TileMap::updateTileCollisions(const float& dt, const std::shared_ptr<Entity
 }
 
 auto TileMap::checkEntitiesCollisions(std::vector<std::shared_ptr<Entity>>& mapOfEntities, const float& dt) -> void {
-    for (int x = mapOfEntities[0]->getCulling().fromX; x < mapOfEntities[0]->getCulling().toX; x++) {
-        for (int y = mapOfEntities[0]->getCulling().fromY; y < mapOfEntities[0]->getCulling().toY; y++) {
-            if(mapOfEntities[0]->getGlobalBounds().intersects(mapOfEntities[0]->getGlobalBounds())) {
 
-            }
-            }
-        }
+
+
 
 
 }
