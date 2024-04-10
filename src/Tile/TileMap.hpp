@@ -9,9 +9,11 @@
 class TileMap {
 private:
     //Variables & Resources
+    my::Timer timer;
     u_short layers;
     float gridSizeF;
     u_short gridSizeU;
+    bool colision;
     sf::Vector2u gameSize;
     sf::Vector2u gameSizeInPixels;
     std::vector<std::vector<std::vector<std::shared_ptr<Tile>>>> tileMap;
@@ -20,8 +22,6 @@ private:
 
     //Initializers
     auto initTexturePacks(const std::filesystem::path& path = "../Resources/editorState/Tileset1.png") -> void;
-    auto initCollisionBox() -> void;
-
     //Private update Methods
     auto updateWorldBoundsCollisions(std::shared_ptr<Entity>& entity) -> void;
     auto updateCulling(std::shared_ptr<Entity>& entity) -> void;
@@ -40,9 +40,7 @@ public:
     auto renderCollisionBox(std::shared_ptr<sf::RenderTarget> target) const -> void;
 
     //Other public methods
-    auto addTile(
-            const u_short& x, const u_short& y, const u_short& z, const sf::IntRect& intRect,
-            const bool& collision, const u_short& type) -> void;
+    auto addTile(const u_short& x, const u_short& y, const u_short& z, const sf::IntRect& intRect, const bool& collision, const u_short& type) -> void;
     auto removeTile(const u_short& x, const u_short& y, const u_short& z) -> void;
     auto getTexture() const -> const std::shared_ptr<sf::Texture>;
 

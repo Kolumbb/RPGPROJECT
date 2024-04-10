@@ -159,11 +159,13 @@ namespace gui {
         auto renderActive(std::shared_ptr<sf::RenderTarget> target, const sf::View& defaultView, const sf::View& view) -> void;
 
         //Other Public methods
+
+        //Accessors & Modifiers
         auto getActive() const -> const bool;
         auto setActive(const bool& yn) -> void;
         auto getPosition() const -> const sf::Vector2f&;
         auto getBounds(const sf::Vector2f& mousePosWindow) const -> const bool;
-        auto getInternalRect() const -> const sf::IntRect &;
+        auto getInternalRect() const -> const sf::IntRect&;
 
     };
 

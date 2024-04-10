@@ -15,6 +15,7 @@ TileMap::TileMap(const float& gridSizeF, u_short width, u_short height)
       layers(1), gameSize(sf::Vector2u(width, height)),
       gameSizeInPixels(sf::Vector2u (width * this->gridSizeU, height * this->gridSizeU))
       {
+    this->layers = 5;
         this->tileMap.resize(this->gameSize.x, std::vector<std::vector<std::shared_ptr<Tile>>>());
         for(auto x = 0 ; x < this->gameSize.x ; x++){
             for(auto y = 0 ; y < this->gameSize.y ; y++) {
@@ -29,6 +30,7 @@ TileMap::TileMap(const float& gridSizeF, u_short width, u_short height)
 
 //Update methods
 auto TileMap::update(const float& dt, std::vector<std::shared_ptr<Entity>>& mapOfEntities) -> void {
+    this->timer.updateKeyTime(dt);
     for(auto& it : mapOfEntities)
         this->updateWorldBoundsCollisions(it);
 
@@ -92,8 +94,6 @@ auto TileMap::updateCulling(std::shared_ptr<Entity>& entity) -> void {
         entity->setCullingToY(this->gameSizeInPixels.y);
 }
 
-
-
 auto TileMap::updateTileCollisions(const float& dt, const std::shared_ptr<Entity>& entity) -> void {
     for (int x = entity->getCulling().fromX; x < entity->getCulling().toX; x++) {
         for (int y = entity->getCulling().fromY; y < entity->getCulling().toY; y++) {
@@ -113,20 +113,19 @@ auto TileMap::updateTileCollisions(const float& dt, const std::shared_ptr<Entity
                     //Bottom collision
                     if (playerBounds.top < wallBounds.top && playerBounds.top + playerBounds.height < wallBounds.top + wallBounds.height)
                         entity->stopVelocityY();
-
+                    //Top collision
+                    if (playerBounds.top > wallBounds.top && playerBounds.top + playerBounds.height > wallBounds.top + wallBounds.height)
+                        entity->stopVelocityY();
                     // Right collision
                     if (playerBounds.left < wallBounds.left && playerBounds.left + playerBounds.width < wallBounds.left + wallBounds.width)
                         entity->stopVelocityX();
-
                     // Left collision
                     if (playerBounds.left > wallBounds.left &&
                         playerBounds.left + playerBounds.width > wallBounds.left + wallBounds.width &&
                         playerBounds.top < wallBounds.top + wallBounds.height && playerBounds.top + playerBounds.height > wallBounds.top) {
                         entity->stopVelocityX();
 
-                    //Top collision
-                     if (playerBounds.top > wallBounds.top && playerBounds.top + playerBounds.height > wallBounds.top + wallBounds.height)
-                        entity->stopVelocityY();
+
 
                     }
                 }
@@ -136,21 +135,51 @@ auto TileMap::updateTileCollisions(const float& dt, const std::shared_ptr<Entity
 }
 
 auto TileMap::checkEntitiesCollisions(std::vector<std::shared_ptr<Entity>>& mapOfEntities, const float& dt) -> void {
+    for (int x = mapOfEntities[0]->getCulling().fromX; x < mapOfEntities[0]->getCulling().toX; x++) {
+        for (int y = mapOfEntities[0]->getCulling().fromY; y < mapOfEntities[0]->getCulling().toY; y++) {
+            if (mapOfEntities[0] != nullptr) {
+                auto playerBounds = sf::FloatRect(mapOfEntities[0]->getGlobalBounds());
+                sf::FloatRect monsterBounds = mapOfEntities[1]->getGlobalBounds();
+                sf::FloatRect nextPositionBounds = mapOfEntities[0]->getNextPosition(dt);
+                if(monsterBounds.intersects(nextPositionBounds))
+                {
 
+                    //Bottom collision
+                    if (playerBounds.top < monsterBounds.top &&
+                        playerBounds.top + playerBounds.height < monsterBounds.top + monsterBounds.height  &&
+                        this->timer.getKeyTime()){
+                        mapOfEntities[0]->getDamage(dt);
+                        break;
+                    }
 
+                    //Top collision
+                    if (playerBounds.top > monsterBounds.top &&
+                        playerBounds.top + playerBounds.height > monsterBounds.top + monsterBounds.height  &&
+                        this->timer.getKeyTime()){
+                        mapOfEntities[0]->getDamage(dt);
+                        break;
+                    }
 
-
-
+                    // Right collision
+                    if (playerBounds.left < monsterBounds.left &&
+                        playerBounds.left + playerBounds.width < monsterBounds.left + monsterBounds.width  &&
+                        this->timer.getKeyTime()){
+                        mapOfEntities[0]->getDamage(dt);
+                        break;
+                    }
+                    // Left collision
+                    if (playerBounds.left > monsterBounds.left &&
+                        playerBounds.left + playerBounds.width > monsterBounds.left + monsterBounds.width &&
+                        playerBounds.top < monsterBounds.top + monsterBounds.height &&
+                        playerBounds.top + playerBounds.height > monsterBounds.top  && this->timer.getKeyTime()) {
+                        mapOfEntities[0]->getDamage(dt);
+                        break;
+                    }
+                }
+            }
+        }
+    }
 }
-
-
-
-
-
-
-
-
-
 
 //Render methods
 auto TileMap::render(std::shared_ptr<sf::RenderTarget> target) -> void {
@@ -195,9 +224,12 @@ auto TileMap::removeTile(const u_short& x, const u_short& y, const u_short& z) -
   if(x >= 0 && x < this->gameSize.x && y >= 0 && y < this->gameSize.y && z >=0 && z < this->layers){
         if(this->tileMap[x][y][z] != nullptr) {
             this->tileMap[x][y][z].reset();
+        }else{
+            std::cout << "It's nullptr\n";
         }
     }
 }
+
 
 auto TileMap::getTexture() const -> const std::shared_ptr<sf::Texture> {
     return this->tileSheet;

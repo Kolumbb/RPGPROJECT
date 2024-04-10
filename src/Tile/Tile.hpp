@@ -20,7 +20,7 @@ public:
     Tile(u_short x, u_short y, float gridSizeF, sf::Texture& texture,
          const sf::IntRect& intRect, const bool& collision = false, u_short type = TileType::DEFAULT
     );
-    ~Tile() = default;
+    ~Tile();
 
     //Update methods
     auto update() -> void;

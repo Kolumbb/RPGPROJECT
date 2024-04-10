@@ -69,7 +69,7 @@ auto EditorState::initMouseText() -> void {
     this->mouseText.setFillColor(sf::Color::White);
     this->mouseText.setFont(this->stateData.font);
     this->mouseText.setCharacterSize(12);
-    this->mouseText.setString(std::to_string(this->collision) + "\n" + std::to_string(this->type));
+    this->mouseText.setString(std::to_string(this->collision) + "\n" + std::to_string(this->layer));
     this->mouseText.setPosition(this->mousePosWindow.x + 5.f, this->mousePosWindow.y + 5.f);
 }
 
@@ -91,7 +91,7 @@ auto EditorState::initView() -> void {
 
 //Constructors & Destructors
 EditorState::EditorState(StateData& stateData, bool collision, u_short type) :
-        State(stateData), paused(false), collision(collision), type(type),cameraSpeed(10.f), texturePackActive(false) {
+        State(stateData), paused(false), collision(collision), layer(0),cameraSpeed(10.f), texturePackActive(false) {
 
     this->initKeyBinds();
     this->initPausedMenu();
@@ -100,7 +100,6 @@ EditorState::EditorState(StateData& stateData, bool collision, u_short type) :
     this->initGui();
     this->initMouseText();
     this->initView();
-    currentRect = sf::IntRect(0,0,0,0);
 }
 
 
@@ -162,13 +161,19 @@ auto EditorState::updateUnPaused(const float &dt) -> void {
 }
 
 auto EditorState::updateKeyBindsInput(const float &dt) -> void {
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keyBinds["RIGHT"]))){
-      this->gameView.move(this->cameraSpeed,0);
-    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keyBinds["RIGHT"]))) this->gameView.move(this->cameraSpeed,0);
+
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keyBinds["LEFT"]))) this->gameView.move(-this->cameraSpeed,0);
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keyBinds["UP"]))) this->gameView.move(0.f,-this->cameraSpeed);
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keyBinds["DOWN"]))) this->gameView.move(0.f,this->cameraSpeed);
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keyBinds["ROTATE_RIGHT"])) && this->timer.getKeyTime())
 
+
+
+
+
+
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keyBinds["ROTATE_LEFT"]))) ;
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keyBinds["CLOSE"])) && this->timer.getKeyTime()){
         this->paused = !this->paused;
     }
@@ -177,12 +182,12 @@ auto EditorState::updateKeyBindsInput(const float &dt) -> void {
         else this->collision = false;
     }
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keyBinds["INCREASE_TYPE"])) && this->timer.getKeyTime()){
-        if(this->type > sizeof(TileType)) this->type = TileType::DEFAULT;
-        else this->type++;
+        if(this->layer > 5) this->layer = 0;
+        else this->layer++;
     }
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keyBinds["DECREASE_TYPE"])) && this->timer.getKeyTime()){
-        if(this->type >= 0) this->type = TileType::DEFAULT;
-        else this->type--;
+        if(this->layer >= 0) this->layer = 0;
+        else this->layer--;
     }
 
 
@@ -194,7 +199,7 @@ auto EditorState::updateGui() -> void {
       this->mousePosGrid.y * this->stateData.gridSizeF
       );
 
-    this->mouseText.setString(std::to_string(this->collision) + "\n" + std::to_string(this->type));
+    this->mouseText.setString(std::to_string(this->collision) + "\n" + std::to_string(this->layer));
     this->mouseText.setPosition(this->mousePosWindow.x + 8.f, this->mousePosWindow.y + 8.f);
 
 }
@@ -205,13 +210,12 @@ auto EditorState::updateEditorInput(const float &dt) -> void {
             this->selector.setTextureRect(this->textureSelector->getInternalRect());
         }else{
             this->tileMap->addTile(
-                    this->mousePosGrid.x , this->mousePosGrid.y,0,this->selector.getTextureRect(), this->collision, this->type
+                    this->mousePosGrid.x , this->mousePosGrid.y,this->layer,this->selector.getTextureRect(), this->collision, TileType::DEFAULT
                     );
         }
-
     }
     if(sf::Mouse::isButtonPressed(sf::Mouse::Right)) {
-        this->tileMap->removeTile(this->mousePosGrid.x, this->mousePosGrid.y, 0);
+        this->tileMap->removeTile(this->mousePosGrid.x, this->mousePosGrid.y, this->layer);
     }
 }
 

@@ -10,16 +10,18 @@ auto Player::initMovementComp() -> void {
 
 auto Player::initAnimationComp() -> void{
     this->animationComponent = std::make_unique<AnimationComponent>(*this->sprite, *this->texture);
-    this->animationComponent->addAnimation(
-            "RUN", 90.f, 0, 1, 7, 1, 144, 96
-            );
+
+
     this->animationComponent->addAnimation(
             "IDLE", 90.f, 0, 0, 15, 0, 144, 96
     );
-
     this->animationComponent->addAnimation(
             "HURT", 90.f, 0, 5, 7, 5, 144, 96
     );
+    this->animationComponent->addAnimation(
+            "RUN", 180.f, 0, 1, 7, 1, 144, 96
+    );
+
 
 }
 
@@ -64,10 +66,13 @@ auto Player::update(const float& dt) -> void {
 }
 
 auto Player::updateInputForAnimation(const float& dt) -> void{
-    if (this->playerAttack) {
-        this->animateAttack(dt);
+    //Idle odpala sie zbyt szybko
+    if (this->playerHurt){
+        this->animateHurt(dt);
     }
+
     else {
+
         if (this->movementComponent->checkDirection(Direction::IDLE)) {
             this->animationComponent->play("IDLE", dt);
         }
@@ -86,7 +91,11 @@ auto Player::updateInputForAnimation(const float& dt) -> void{
         else if (this->movementComponent->checkDirection(Direction::DOWN)) {
             this->animationComponent->play("RUN", dt);
         }
+
     }
+//    if (this->playerAttack) {
+//        this->animateAttack(dt);
+//    }
 }
 		
 
@@ -110,6 +119,13 @@ auto Player::animateAttack(const float& dt) -> void {
   }
 }
 
+auto Player::animateHurt(const float& dt) -> void{
+    if (this->animationComponent->play("HURT", dt, true)) {
+        this->setHurt();
+    }else{
+        this->sprite->move(-this->direction, 0);
+    }
+}
 
 
 //Accessors
@@ -123,9 +139,25 @@ auto Player::setAttack() -> void{
   else this->playerAttack = true;
 }
 
-auto Player::getDamage() -> void {
-    this->health -= 10;
+auto Player::setHurt() -> void{
+    if (this->playerHurt)
+        this->playerHurt = false;
+    else this->playerHurt = true;
 }
+
+auto Player::getDamage(const float& dt) -> void {
+    if(this->getHealth() > 0){
+        this->setHurt();
+        this->health -= 3;
+
+    }
+}
+
+
+
+
+
+
 
 
 

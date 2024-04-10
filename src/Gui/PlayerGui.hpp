@@ -10,6 +10,7 @@
 class PlayerGui {
 private:
     //Variables & Resources
+    my::Timer timer;
     std::shared_ptr<Entity> player;
     sf::RectangleShape healthBar;
     sf::RectangleShape healthAmount;
@@ -18,8 +19,9 @@ public:
     PlayerGui(std::shared_ptr<Entity> player);
     ~PlayerGui() = default;
 
-    void update(const float& dt, std::shared_ptr<Entity> player);
-    void render(std::shared_ptr<sf::RenderTarget> target);
+    auto update(const float& dt, std::shared_ptr<Entity> player) -> void;
+
+    auto render(std::shared_ptr<sf::RenderTarget> target) -> void;
 
 };
 

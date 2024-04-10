@@ -40,6 +40,8 @@ public:
   // Other methods
   auto move(const float &x, const float &y) -> void;
 
+  //Accessors & Modifiers
+  auto  getDamage(const float& dt) -> void override;
 
 
 };

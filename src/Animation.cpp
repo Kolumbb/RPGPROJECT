@@ -17,8 +17,7 @@ Animation::Animation(
 	this->currentRect = startRect;
 	this->setSprite();
 	this->endRect = sf::IntRect(endRectsX * width, endRectsY * height, width, height);
-	
-	
+
 }
 
 
@@ -34,16 +33,18 @@ Animation::Animation(
 //Other public methods
 auto Animation::play(const float& dt) -> const bool& {
     this->done = false;
-    this->timer += 800.f * dt;
+    this->timer += 600.f * dt;
     if (this->timer >= this->animationTimer) {
         this->timer = 0.f;
         if (this->currentRect != this->endRect) { // Animate
-            this->currentRect.left += this->width;
+            this->currentRect.left = this->currentRect.left+ this->width;
         }
         else { //Reset
             this->currentRect = this->startRect;
             this->done = true;
         }
+        std::cout<< "z " << this->currentRect.left << std::endl;
+
         this->sprite.setTextureRect(this->currentRect);
     }
     return done;

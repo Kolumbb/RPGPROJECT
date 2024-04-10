@@ -17,8 +17,12 @@ Tile::Tile(u_short x, u_short y, float gridSizeF, sf::Texture &texture, const sf
     this->shape.setTexture(&texture);
     this->shape.setTextureRect(intRect);
     this->initCollisionBox();
+    std::cout << " Tile created\n";
 }
 
+Tile::~Tile(){
+    std::cout << " Tile deleted\n";
+}
 //Update methods
 auto Tile::update() -> void {
 
@@ -58,6 +62,7 @@ auto Tile::getGlobalBounds() const -> const sf::FloatRect & {
             this->shape.getGlobalBounds().height
             );
 }
+
 
 
 

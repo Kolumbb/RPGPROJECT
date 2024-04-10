@@ -5,17 +5,25 @@
 #include "../ResourcePath.hpp"
 
 class Entity {
+private:
+    my::Culling culling;
+
+
+
+
+
+
 protected:
     //Variables & Resources
-    std::shared_ptr<sf::Texture> texture;
-    std::shared_ptr<sf::Sprite> sprite;
+    std::unique_ptr<HitBoxComponent> hitboxComponent;
     std::unique_ptr<MovementComponent> movementComponent;
     std::unique_ptr<AnimationComponent> animationComponent;
-    std::unique_ptr<HitBoxComponent> hitboxComponent;
-    int direction;
+    std::shared_ptr<sf::Sprite> sprite;
+    std::shared_ptr<sf::Texture> texture;
     bool playerAttack;
+    bool playerHurt;
+    int direction;
     float health;
-    my::Culling culling;
 
 
 
@@ -57,4 +65,6 @@ public:
     auto setCullingToY(const int& val) -> void;
     auto setCullingFromX(const int& val) -> void;
     auto setCullingFromY(const int& val) -> void;
+
+    virtual auto getDamage(const float& dt) -> void = 0;
 };

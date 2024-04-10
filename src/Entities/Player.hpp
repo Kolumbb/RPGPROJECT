@@ -16,7 +16,7 @@ private:
 
   // Private methods
   auto animateAttack(const float &dt) -> void;
-
+  auto animateHurt(const float& dt) -> void;
 protected:
 public:
   // Constructors & Destructors
@@ -30,15 +30,11 @@ public:
   // Render methods
   auto render(std::shared_ptr<sf::RenderTarget> target) -> void override;
 
+  //Accessors & Modifiers
+  auto setAttack() -> void;
+  auto setHurt() -> void;
+  auto getDamage(const float& dt) -> void override;
+
   // Other methods
   auto move(const float &x, const float &y) -> void override;
-
-
-  //Accessors
-
-
-  //Modifiers
-  auto setAttack() -> void;
-  auto getDamage() -> void;
-
 };

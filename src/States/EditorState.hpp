@@ -11,12 +11,11 @@ private:
     //Variables & Resources
     bool paused;
     bool collision;
-    u_short type;
+    u_short layer;
     sf::Text mouseText;
     sf::RectangleShape selector;
     sf::View gameView;
     float cameraSpeed;
-    sf::IntRect currentRect;
     std::unique_ptr <PauseMenu> pMenu;
     std::unique_ptr <TileMap> tileMap;
     std::unique_ptr<sf::RectangleShape> sideBar;

@@ -56,7 +56,7 @@ auto Slime::updateInputForAnimation(const float& dt) -> void {
         this->movementComponent->checkDirection(Direction::RIGHT)) {
         this->animationComponent->play("RUN", dt);
     }
-    //this->updateMovingPath();
+    this->updateMovingPath();
 
 
 }
@@ -87,6 +87,10 @@ auto Slime::render(std::shared_ptr<sf::RenderTarget> target) -> void {
 //Other methods
 auto Slime::move(const float& x, const float& y) -> void {
   this->movementComponent->move(x, y);
+}
+
+auto Slime::getDamage(const float& dt) -> void {
+
 }
 
 

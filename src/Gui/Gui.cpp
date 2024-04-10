@@ -53,7 +53,7 @@ gui::Button::Button(
 	textIdleColor(textIdleColor), textHoverColor(textHoverColor), textActiveColor(textActiveColor),
 	idleColor(idleColor), hoverColor(hoverColor), activeColor(activeColor),
 	outlineIdleColor(outlineIdleColor), outlineHoverColor(outlineHoverColor),
-    outlineActiveColor(outlineActiveColor){
+        outlineActiveColor(outlineActiveColor){
 	this->initShape(posX, posY, width, height);
 	this->initText(text, characterSize, font);
 }
@@ -61,6 +61,7 @@ gui::Button::Button(
 gui::Button::~Button(){
     std::cout << "Button deleted" << std::endl;
 }
+
 //Update methods
 auto gui::Button::update(const float& dt, const sf::Vector2f& mousePosWindow) -> void {
 	this->updateMousePosition(dt, mousePosWindow);
@@ -110,8 +111,6 @@ auto gui::Button::render(std::shared_ptr<sf::RenderTarget> target) const -> void
 	target->draw(this->shape);
 	target->draw(this->text);
 }
-
-
 
 //DorpDownList
 
@@ -182,7 +181,6 @@ auto gui::DropDownList::initDropDownList(u_short offsetB) -> void{
     }
 }
 //Constructors & Destructors
-
 gui::DropDownList::DropDownList(
         const std::string& name,u_short buttonWidth,
         StateData& stateData, std::vector<std::string> str,
@@ -190,6 +188,7 @@ gui::DropDownList::DropDownList(
         str(str), shownList(shown){
     this->initDropDownList();
 }
+
 //Update methods
 auto gui::DropDownList::update(const float& dt, const sf::Vector2f& mousePosition) -> void{
 	this->activeElement->update(dt, mousePosition);
@@ -209,6 +208,7 @@ auto gui::DropDownList::update(const float& dt, const sf::Vector2f& mousePositio
     this->timer.updateKeyTime(dt);
 
 }
+
 //Render methods
 auto gui::DropDownList::render(std::shared_ptr<sf::RenderTarget> target) const -> void const{
 	this->activeElement->render(target);
@@ -255,11 +255,10 @@ auto gui::DropDownList::setShown() -> void{
         this->shownList = true;
     else this->shownList = false;
 }
+
 auto gui::DropDownList::getText() const -> const std::string{
     return this->activeElement->getText();
 }
-
-
 
 //Other public methods
 
@@ -293,8 +292,6 @@ auto gui::TextureSelector::initSelector(const float& posX, const float& posY) ->
     this->selector.setOutlineThickness(1.f);
 }
 
-
-
 //Constructors & Destructors
 gui::TextureSelector::TextureSelector(
         const float& posX, const float& posY, const float& width, const float& height,
@@ -308,6 +305,7 @@ gui::TextureSelector::TextureSelector(
 
 
 }
+
 //Update methods
 auto gui::TextureSelector::update(const sf::Vector2u& mousePosF) -> void {
   this->internalRect.left = (this->selector.getPosition().x) - this->position.x;
@@ -328,8 +326,7 @@ auto gui::TextureSelector::render(std::shared_ptr<sf::RenderTarget> target)-> vo
 
 
 
-
-//Other Public methods
+//Accessors & Modifiers
 auto gui::TextureSelector::getActive() const -> const bool {
     return this->active;
 }
@@ -337,12 +334,17 @@ auto gui::TextureSelector::getActive() const -> const bool {
 auto gui::TextureSelector::getInternalRect() const -> const sf::IntRect & {
     return this->internalRect;
 }
+
 auto gui::TextureSelector::getBounds(const sf::Vector2f& mousePosWindow) const -> const bool {
   if (this->bounds.getGlobalBounds().contains(mousePosWindow)) return true;
   else return false;
 }
+
 auto gui::TextureSelector::setActive(const bool& yn) -> void { this->active = yn; }
 
 auto gui::TextureSelector::getPosition() const -> const sf::Vector2f & {
   return this->selector.getPosition();
 }
+
+
+//Other Public methods

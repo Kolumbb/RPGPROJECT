@@ -3,21 +3,17 @@
 
 
 //Constructors & Destructors
-Entity::Entity(const float& health): playerAttack(false), direction(1), health(health){
+Entity::Entity(const float& health): playerAttack(false), playerHurt(false), direction(1), health(health){
 	this->texture = std::make_shared<sf::Texture>();
 	this->sprite = std::make_shared<sf::Sprite>();
 }
 
+Entity::~Entity() {
+    std::cout << "Entity deleted" << std::endl;
+}
+
 //Other public methods
-auto Entity::stopVelocity() -> void {
-  this->movementComponent->stopVelocity();
-}
-auto Entity::stopVelocityX() -> void {
-  this->movementComponent->stopVelocityX();
-}
-auto Entity::stopVelocityY() -> void {
-  this->movementComponent->stopVelocityY();
-}
+
 
 
 //Accessors & Modifiers
@@ -62,19 +58,6 @@ auto Entity::getNextPosition(const float& dt) const -> const sf::FloatRect & {
   return sf::FloatRect(-1.f, -1.f, -1.f, -1.f);
 }
 
-
-
-auto Entity::updateDirection() -> void {
-    if(this->movementComponent->getVelocity().x < 0.0f)
-        this->direction = -1;
-    else if(this->movementComponent->getVelocity().x > 0.0f)
-        this->direction = 1;
-}
-
-auto Entity::getAttack() const -> const bool & {
-    return this->playerAttack;
-}
-
 auto Entity::getCulling() -> my::Culling {
     return this->culling;
 }
@@ -95,13 +78,39 @@ auto Entity::setCullingFromY(const int &val) -> void {
     this->culling.fromY = val;
 }
 
+auto Entity::stopVelocity() -> void {
+    this->movementComponent->stopVelocity();
+}
+
+auto Entity::stopVelocityX() -> void {
+    this->movementComponent->stopVelocityX();
+}
+
+auto Entity::stopVelocityY() -> void {
+    this->movementComponent->stopVelocityY();
+}
+
+auto Entity::updateDirection() -> void {
+    if(this->movementComponent->getVelocity().x < 0.0f)
+        this->direction = -1;
+    else if(this->movementComponent->getVelocity().x > 0.0f)
+        this->direction = 1;
+}
+
+auto Entity::getAttack() const -> const bool & {
+    return this->playerAttack;
+}
+
 auto Entity::getHealth() const -> const float & {
     return this->health;
 }
 
-Entity::~Entity() {
-    std::cout << "Entity deleted" << std::endl;
-}
+
+
+
+
+
+
 
 
 
