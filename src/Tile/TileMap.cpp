@@ -8,7 +8,6 @@ auto TileMap::initTexturePacks(const std::filesystem::path& path) -> void {
     this->tileSheet->loadFromFile(path.string());
 }
 
-
 //Constructors & Destructores
 TileMap::TileMap(const float& gridSizeF, u_short width, u_short height)
     : gridSizeF(gridSizeF), gridSizeU(static_cast<unsigned>(gridSizeF)),
@@ -25,7 +24,13 @@ TileMap::TileMap(const float& gridSizeF, u_short width, u_short height)
                 }
             }
         }
-        this->initTexturePacks();
+        for(auto i = 1 ; i <=3 ; i++){
+            auto name = std::string(
+                    "../Resources/editorState/Tileset" + std::to_string(i) + ".png"
+            );
+            this->initTexturePacks(name);
+        }
+
 }
 
 //Update methods
@@ -98,12 +103,7 @@ auto TileMap::updateTileCollisions(const float& dt, const std::shared_ptr<Entity
     for (int x = entity->getCulling().fromX; x < entity->getCulling().toX; x++) {
         for (int y = entity->getCulling().fromY; y < entity->getCulling().toY; y++) {
             if (this->tileMap[x][y][entity->getCulling().layer] != nullptr) {
-                auto playerBounds = sf::FloatRect(
-                        entity->getGlobalBounds().left,
-                        entity->getGlobalBounds().top,
-                        entity->getGlobalBounds().width,
-                        entity->getGlobalBounds().height
-                );
+                auto playerBounds = sf::FloatRect(entity->getGlobalBounds());
                 sf::FloatRect wallBounds = this->tileMap[x][y][entity->getCulling().layer]->getGlobalBounds();
                 sf::FloatRect nextPositionBounds = entity->getNextPosition(dt);
 
@@ -229,7 +229,6 @@ auto TileMap::removeTile(const u_short& x, const u_short& y, const u_short& z) -
         }
     }
 }
-
 
 auto TileMap::getTexture() const -> const std::shared_ptr<sf::Texture> {
     return this->tileSheet;

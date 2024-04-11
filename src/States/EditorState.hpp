@@ -20,7 +20,7 @@ private:
     std::unique_ptr <TileMap> tileMap;
     std::unique_ptr<sf::RectangleShape> sideBar;
     std::unique_ptr<gui::TextureSelector> textureSelector;
-    std::unique_ptr<gui::Button> texturePack;
+    std::vector<std::unique_ptr<gui::Button>> texturePacks;
     bool texturePackActive;
 
     // std::map<std::string, gui::Button*> buttons;

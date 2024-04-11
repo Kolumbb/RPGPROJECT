@@ -80,7 +80,7 @@ struct Culling {
     int toY;
     int layer;
     Culling(int formX = 0, int toX = 0, int fromY = 0, int toY = 0,
-          int layer = 0);
+          int layer = 3);
     ~Culling() = default;
 
 };

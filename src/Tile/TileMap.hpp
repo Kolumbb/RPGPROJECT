@@ -21,7 +21,7 @@ private:
     std::shared_ptr<std::vector<std::shared_ptr<Entity>>> entities;
 
     //Initializers
-    auto initTexturePacks(const std::filesystem::path& path = "../Resources/editorState/Tileset1.png") -> void;
+    auto initTexturePacks(const std::filesystem::path& path) -> void;
     //Private update Methods
     auto updateWorldBoundsCollisions(std::shared_ptr<Entity>& entity) -> void;
     auto updateCulling(std::shared_ptr<Entity>& entity) -> void;

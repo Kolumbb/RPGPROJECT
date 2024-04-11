@@ -13,16 +13,14 @@ auto Player::initAnimationComp() -> void{
 
 
     this->animationComponent->addAnimation(
-            "IDLE", 90.f, 0, 0, 15, 0, 144, 96
+            "IDLE", 50.f, 0, 0, 15, 0, 144, 96
     );
     this->animationComponent->addAnimation(
-            "HURT", 90.f, 0, 5, 7, 5, 144, 96
+            "HURT", 50.f, 0, 5, 3, 5, 144, 96
     );
     this->animationComponent->addAnimation(
-            "RUN", 180.f, 0, 1, 7, 1, 144, 96
+            "RUN", 50.f, 0, 1, 7, 1, 144, 96
     );
-
-
 }
 
 auto Player::initTexture(const std::filesystem::path& path = "../Resources/gameState/warrior-all-animations.png") -> void {
@@ -41,8 +39,6 @@ auto Player::initHitBoxComp() -> void{
                 *this->sprite, -18.f, 25.f, 30.f, 45.f
                 );
 }
-
-
 
 //Constructors & Destructors
 Player::Player(const sf::Vector2f& startPos, const float& health): Entity(health) {

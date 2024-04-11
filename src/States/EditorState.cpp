@@ -23,7 +23,6 @@ auto EditorState::initKeyBinds(const std::filesystem::path& path)-> void {
 
 }
 
-
 auto EditorState::initPausedMenu() -> void {
     this->pMenu = std::make_unique<PauseMenu>(this->stateData, 150, 16);
 }
@@ -50,18 +49,21 @@ auto EditorState::initGui() -> void {
     this->sideBar->setOutlineColor(sf::Color(255, 255, 255, 200));
 
     auto gWidth = stateData.gfxSettings->resolution.width;
-    this->texturePack = std::make_unique<gui::Button>(
-        0, //pos_x
-        0, //pos_y
-        this->stateData.gridSizeF - 1.f, //width
-        this->stateData.gridSizeF - 1.f, //height
-        "TS1", gWidth/ 80.f,
-        sf::Color(255, 255, 255, 255),
-        sf::Color(250, 250, 250, 250),
-        sf::Color(20, 20, 20, 50),
-        sf::Color(70, 70, 70, 255),
-        sf::Color(150, 150, 150, 0),
-        sf::Color(20, 20, 20, 0), stateData.font
+    for(auto i = 1 ; i < 3 ; i++)
+    this->texturePacks.push_back(
+            std::make_unique<gui::Button>(
+                0, //pos_x
+                0, //pos_y
+                this->stateData.gridSizeF - 1.f, //width
+                this->stateData.gridSizeF - 1.f, //height
+                "TS" + std::to_string(i), gWidth/ 80.f,
+                sf::Color(255, 255, 255, 255),
+                sf::Color(250, 250, 250, 250),
+                sf::Color(20, 20, 20, 50),
+                sf::Color(70, 70, 70, 255),
+                sf::Color(150, 150, 150, 0),
+                sf::Color(20, 20, 20, 0), stateData.font
+            )
     );
 }
 
@@ -110,17 +112,18 @@ auto EditorState::update(const float& dt) -> void {
     this->updateMousePos(this->gameView);
     this->updateKeyBindsInput(dt);
 
-    this->texturePack->update(dt, mousePosWindow);
+    for(auto& ts : texturePacks)
+        ts->update(dt, mousePosWindow);
+    for(auto& ts : texturePacks)
+        if(ts->isPressed() && timer.getKeyTime()){
+            if(!this->texturePackActive) this->texturePackActive = true;
+            else this->texturePackActive = false;
+        }
+        if(this->texturePackActive) {
+            if (this->textureSelector->getBounds(this->mousePosWindow)) this->textureSelector->setActive(true);
+            else this->textureSelector->setActive(false);
 
-    if(this->texturePack->isPressed() && timer.getKeyTime()){
-      if(!this->texturePackActive) this->texturePackActive = true;
-      else this->texturePackActive = false;
-    }
-    if(this->texturePackActive) {
-      if (this->textureSelector->getBounds(this->mousePosWindow)) this->textureSelector->setActive(true);
-      else this->textureSelector->setActive(false);
-
-      if(this->textureSelector->getActive()) this->textureSelector->update(this->mousePosU);
+        if(this->textureSelector->getActive()) this->textureSelector->update(this->mousePosU);
 
 
     }
@@ -136,8 +139,6 @@ auto EditorState::update(const float& dt) -> void {
     }
 
 }
-
-
 
 auto EditorState::updateButtons(const float &dt) -> void {
     if(this->pMenu->isButtonPressed("Save") && this->timer.getKeyTime()) this->tileMap->saveMapToFile();
@@ -249,7 +250,9 @@ auto EditorState::renderGui(std::shared_ptr<sf::RenderTarget> target) -> void {
   }
   target->draw(this->mouseText);
   target->draw(*this->sideBar);
-  this->texturePack->render(target);
+
+    for(auto& ts : texturePacks)
+  ts->render(target);
 
 
 

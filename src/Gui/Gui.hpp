@@ -71,7 +71,6 @@ namespace gui {
 
     };
 
-    //Drop Down List Class
     class DropDownList {
     private:
         //Resources & Variables

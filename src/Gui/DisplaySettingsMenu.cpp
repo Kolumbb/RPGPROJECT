@@ -15,20 +15,20 @@ auto DisplaySettingsMenu::initGui(u_short offsetB) -> void {
 	for (int i = 0; i < this->buttonNames.size(); i++) {
         //Option texts
 		if (i < buttonNames.size() - 2) {
-			tmp.setString(buttonNames[i]);
-			this->buttons[buttonNames[i]] = std::make_unique<gui::Button>(
-                width/ 3.5f, //pos_x
-                (width / 19.5f) * (i + offsetB), //pos_y
-                width/ 8.53f, //width
-                width / 25.6f, //height
-                buttonNames[i], width / 80.f,
-				sf::Color(0, 0, 0, 255),
-				sf::Color(250, 250, 250, 250),
-				sf::Color(20, 20, 20, 50),
-				sf::Color(70, 70, 70, 0),
-				sf::Color(150, 150, 150, 0),
-				sf::Color(20, 20, 20, 0), this->stateData.font
-			);
+                    this->buttons[buttonNames[i]] = std::make_unique<gui::Button>(
+                        width/ 3.5f, //pos_x
+                        (width / 19.5f) * (i + offsetB), //pos_y
+                        width/ 8.53f, //width
+                        width / 25.6f, //height
+                        buttonNames[i], width / 80.f,
+                        sf::Color(0, 0, 0, 255),
+                        sf::Color(250, 250, 250, 250),
+                        sf::Color(20, 20, 20, 50),
+                        sf::Color(70, 70, 70, 0),
+                        sf::Color(150, 150, 150, 0),
+                        sf::Color(20, 20, 20, 0), this->stateData.font
+                    );
+                    tmp.setString(buttonNames[i]);
 		}
         // Back button
 		else if (i == buttonNames.size() - 2) {
